@@ -1,6 +1,9 @@
-# Ignore NeuroField output files
-*.output
 #*.mat
+
+# Ignore MEX files
+*.mexa64
+*.mexmaci64
+*.mexw64
 
 # Ignore LaTeX files
 *.aux
