@@ -1,0 +1,11 @@
+# Ignore NeuroField output files
+*.output
+#*.mat
+
+# Ignore LaTeX files
+*.aux
+*.fdb_latexmk
+*.log
+*.out
+*.synctex.gz
+*.toc
