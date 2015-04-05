@@ -8,11 +8,11 @@ function fdata = load_subject_data(dataset,subject_idx,electrode)
 	end
 
 	if isunix && ~ismac
-		fdata = load(sprintf('~/Desktop/psg_data/sleep_tfs/%s_%d_lf_tfs',dataset,subject_idx));
+		fdata = load(sprintf('~/usyd_postdoc/psg_data/sleep_tfs/%s_%d_lf_tfs',dataset,subject_idx));
     elseif ismac
-		fdata = load(sprintf('~/Desktop/psg_data/sleep_tfs/%s_%d_lf_tfs',dataset,subject_idx));
+		fdata = load(sprintf('~/usyd_postdoc/psg_data/sleep_tfs/%s_%d_lf_tfs',dataset,subject_idx));
     else
-        fdata = load(sprintf('C:/Users/romesh/Desktop/psg_data/sleep_tfs/%s_%d_lf_tfs',dataset,subject_idx));
+        fdata = load(sprintf('C:/Users/romesh/Desktop/usyd_postdoc/psg_data/sleep_tfs/%s_%d_lf_tfs',dataset,subject_idx));
     end
 
     if ~isempty(electrode) && (length(electrode) > 1 || ~strcmp(electrode,'all'))
