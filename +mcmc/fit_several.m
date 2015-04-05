@@ -36,7 +36,7 @@ function fdata = fit_several(model,dataset,subject_idx,t_increment,npts_per_fit)
 		if j == 1
 			[initial_params,initial_pp] = model.initialize_fit(d.f,target_P);
 			[fit_data(j),plot_data(j)] = mcmc.fit(model,d.f(:),target_P,initial_pp,initial_params,npts_per_fit,target_state{j},[],debugmode);
-			fdata = mcmc.feather(model,fit_data(j),plot_data(j));
+			fdata = mcmc.feather(model,fit_data(j),plot_data(j),t_increment(j));
 		else
 			[fit_data(j),plot_data(j)] = mcmc.fit(model,d.f(:),target_P,fit_data(j-1).posterior_pp,fit_data(j-1).fitted_params,npts_per_fit,target_state{j},[],debugmode);			
 			%[fit_data(j),plot_data(j)] = mcmc.fit(model,d.f(:),target_P,initial_pp,fit_data(j-1).fitted_params,npts_per_fit,target_state{j},[],debugmode);			
