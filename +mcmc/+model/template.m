@@ -1,5 +1,5 @@
 classdef (Abstract) template < matlab.mixin.Copyable
-
+    
 	% These properties are SetAccess protected to ensure that the MCMC functions
 	% are properly independent of the choice of model
 	properties(SetAccess = protected) % Public access, but can only be edited via the interface
@@ -33,6 +33,7 @@ classdef (Abstract) template < matlab.mixin.Copyable
 	methods
 
 		function [target_f,P,stab] = spectrum(self,pars,target_f)
+
 			if nargin < 3
 				target_f = linspace(1,45,100);
 			end
@@ -41,7 +42,7 @@ classdef (Abstract) template < matlab.mixin.Copyable
 			self.set_cache(pars);
 			[chisq,P] = self.objective(pars);
 			stab = isfinite(chisq);
-			P = P./mex_trapz(target_f,P);
+			P = P./utils.mex_trapz(target_f,P);
 		end
 
 		function default_t0_skip_fit(self,target_f,target_P,t0_index)
@@ -50,7 +51,7 @@ classdef (Abstract) template < matlab.mixin.Copyable
 
 			self.skip_fit = zeros(1,self.n_params);
 			assert(isvector(target_P)); % This function should not be used with multiple electrodes
-			temp_analysis = get_spec_analysis(target_f(:),target_P(:));
+			temp_analysis = model.get_spec_analysis(target_f(:),target_P(:));
 			if temp_analysis.alpha_str < 5 % Only fit t0 if alpha peak is present
 				self.skip_fit(t0_index) = 1; % Change this to false to enable fitting t0 at all times
 			else

@@ -125,14 +125,14 @@ classdef viewer < handle
 						spec_ax_pos(end+1) = a_idx(j,k);
 					end
 				end
-				self.spec_ax = subplot(n_rows+self.plot_chisq,n_cols,spec_ax_pos);
+				self.spec_ax = subplot(n_rows+self.plot_chisq,n_cols,spec_ax_pos,'Parent',self.parent_figure);
 				title(self.model.electrodes{1})
 			else
 				count = 1;
 				for j = 1+tent_row_count:n_rows
 					for k = 1:(n_cols - 2)
 						if count <= length(self.model.electrodes)
-							self.spec_ax(end+1) = subplot(n_rows+self.plot_chisq,n_cols,a_idx(j,k));
+							self.spec_ax(end+1) = subplot(n_rows+self.plot_chisq,n_cols,a_idx(j,k),'Parent',self.parent_figure);
 							self.electrode_titles(end+1) = title(self.model.electrodes{count});
 							count = count + 1;
 						end
@@ -147,14 +147,14 @@ classdef viewer < handle
 			end
 
 			% ---------------------------
-			self.tent_ax = subplot(n_rows+self.plot_chisq,n_cols,tent_ax_pos);
+			self.tent_ax = subplot(n_rows+self.plot_chisq,n_cols,tent_ax_pos,'Parent',self.parent_figure);
 			xyz = [0 0 0];
 			hold(self.tent_ax,'on');
 			self.xyz_marker = scatter3(self.tent_ax,xyz(1),xyz(2),xyz(3),50,'go','MarkerFaceColor','g');
 			self.vol3d_data = [];
 			self.red_trail = plot3(self.tent_ax,xyz(1),xyz(2),xyz(3),'r','LineWidth',0.5);
 			self.title_str = title('TENT');
-			self.tent_mesh = se.paper_surface_hg2;
+			self.tent_mesh = tent.surface_hg2;
 			self.tent_mesh.EdgeColor = 'flat';
 			self.tent_mesh.Visible = 'off';
 
@@ -171,8 +171,8 @@ classdef viewer < handle
 			self.tent_ax.XTick = 0:0.5:1;
 			self.tent_ax.YTick = -1:0.5:1;
 			self.tent_ax.ZTick = 0:0.5:1;
-			box on
-			grid on
+			box(self.tent_ax,'on')
+			grid(self.tent_ax,'on')
 			xlabel('X');
 			ylabel('Y');
 			zlabel('Z');
@@ -218,7 +218,7 @@ classdef viewer < handle
 			lim = [lim xyz_lim(:,self.plot_xyz_posterior)];
 
 			for j = 1:self.n_hist
-				self.hist_ax(end+1) = subplot(n_rows+self.plot_chisq,n_cols,a_idx(ceil(j/2),3+mod(j-1,2)));
+				self.hist_ax(end+1) = subplot(n_rows+self.plot_chisq,n_cols,a_idx(ceil(j/2),3+mod(j-1,2)),'Parent',self.parent_figure);
 				box(self.hist_ax(j),'on');
 				hold(self.hist_ax(j),'on');
 				set(self.hist_ax(j),'YLim',[0 1]);
@@ -241,13 +241,13 @@ classdef viewer < handle
 				for j = 1:n_cols
 					chisq_ax_pos(end+1) = a_idx(n_rows+1,j);
 				end
-				self.chisq_ax = subplot(n_rows+1,n_cols,chisq_ax_pos);
-				box on
-				hold on
+				self.chisq_ax = subplot(n_rows+1,n_cols,chisq_ax_pos,'Parent',self.parent_figure);
+				box(self.chisq_ax,'on')
+				hold(self.chisq_ax,'on')
 				self.chisq_ax_txt = utils.fig_letter('1');
 				self.chisq_ax_txt.FontSize = 14;
-				self.chisq_vert_line = plot([1 1],[0 0],'k','HitTest','off');
-				hold off
+				self.chisq_vert_line = plot(self.chisq_ax,[1 1],[0 0],'k','HitTest','off');
+				hold(self.chisq_ax,'off')
 				self.prep_animation()
 			else
 				self.update_idx(1);
@@ -363,18 +363,18 @@ classdef viewer < handle
 
 		function prep_animation(self)
 			chisq = self.feather.chisq;
-			contaminated = tracking.chisq_outliers(chisq);
+			contaminated = braintrack_utils.chisq_outliers(chisq);
 			chisq(contaminated) = NaN;
 			
 			fixed_idx = arrayfun(@(x) x.skip_fit(1),self.feather.fit_data) == 3;
 			time_idx = self.feather.time;
 
-			axes(self.chisq_ax)
-			hold on
-			tracking.plot_statecolored(time_idx,chisq,self.feather);
+			axes(self.chisq_ax);
+			hold(self.chisq_ax,'on');
+			self.feather.plot_statecolored(time_idx,chisq);
 			scatter(time_idx(fixed_idx),chisq(fixed_idx),'r.');
-			hold off
-			axis tight
+			hold(self.chisq_ax,'off');
+			axis(self.chisq_ax,'tight');
 			set(self.chisq_ax,'XLim',[time_idx(1) time_idx(end)]);
 			yl = get(self.chisq_ax,'YLim');
 			self.chisq_vert_line.YData = [yl(1) yl(2)];

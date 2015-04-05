@@ -6,6 +6,8 @@ function [f_fitted,P_fitted,idx,db_data,min_chisq] = quick_fit(model,target_f,ta
     % pp_f - database frequencies
     % pp - matrix of all power spectra in database
     % constraint_data : 1/lsq*constraint_weight is the probability. constraint_weight can be calculated externally
+    import utils.mex_trapz
+    
     load db_fit/pp_allstates
 
     if nargin >= 4 && ~isempty(force_wake_state)

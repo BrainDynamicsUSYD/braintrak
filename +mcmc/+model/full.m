@@ -110,7 +110,7 @@ classdef full < mcmc.model.template
 
 		    P = P + 1e-9*pars(9)*self.emg; % Add the EMG component
 		    
-		    P = P./mex_trapz(self.target_f(self.weights>0),P(self.weights>0));
+		    P = P./utils.mex_trapz(self.target_f(self.weights>0),P(self.weights>0));
 		    P = self.normalization_target*P;
 		    sqdiff = (abs(P-self.target_P)./self.target_P).^2; % This is the squared fractional difference
 		    chisq = sum(sqdiff(:).*self.weights(:));
@@ -157,7 +157,7 @@ classdef full < mcmc.model.template
 			
 			if ~isempty(self.target_P)
 				% If this cache file is being generated for a specific fit instance
-				self.normalization_target = mex_trapz(self.target_f(self.weights>0),self.target_P(self.weights>0));
+				self.normalization_target = utils.mex_trapz(self.target_f(self.weights>0),self.target_P(self.weights>0));
 			end
 
 

@@ -8,7 +8,7 @@ function [blocks,block_color] = state_blocks(self)
 	trans = find(diff(state_number))+1;
 	trans = [1; trans(:); self.latest];
 	blocks = [trans(1:end-1),trans(2:end)];
-    cdata = se.tent_cdata();
+    cdata = braintrack_utils.state_cdata();
 	block_color = cdata(state_number(blocks(:,1)),:);
 
 	

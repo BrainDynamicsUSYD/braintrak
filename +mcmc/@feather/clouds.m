@@ -7,7 +7,7 @@ function clouds(f)
 	contaminated = tracking.chisq_outliers(chisq);
 
 	state_color = f.state_colors;
-	cdata = se.tent_cdata;
+	cdata = braintrack_utils.state_cdata;
 
 
 

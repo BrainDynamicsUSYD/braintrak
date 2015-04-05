@@ -40,7 +40,7 @@ function plot_timecourse(f,nocolor)
 			plot(xv,yv(:,j))
 			hold on
 		else
-			tracking.plot_statecolored(xv,yv(:,j),f);
+			f.plot_statecolored(xv,yv(:,j));
 		end
 
 		if isempty(param_units{j})
