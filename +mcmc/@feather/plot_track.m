@@ -6,6 +6,6 @@ function h_out = plot_track(self,idx)
 	end
 
 	xyz = f.xyz;
-	contaminated = tracking.chisq_outliers(f.chisq);
+	contaminated = braintrack_utils.chisq_outliers(f.chisq);
 	xyz(contaminated,:) = NaN;
 	h_out = self.plot_statecolored(xyz(:,1),xyz(:,2),xyz(:,3));
