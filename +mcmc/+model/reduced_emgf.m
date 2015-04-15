@@ -11,7 +11,7 @@ classdef reduced_emgf < mcmc.model.reduced
 				self.n_params = 8;
 				self.param_names = {'X','Y','Z','Alpha','Beta','t0','EMGa','EMGf'};
 				self.param_symbols = {'X','Y','Z','\alpha','\beta','t_0','A_{EMG}','f_{EMG}'};
-				self.param_units = {'','','','ms','ms','ms','','Hz'};
+				self.param_units = {'','','','s^{-1}','s^{-1}','ms','','Hz'};
 
 				self.n_fitted = 8;
 				self.skip_fit = zeros(1,self.n_fitted);

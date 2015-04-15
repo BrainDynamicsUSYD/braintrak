@@ -30,7 +30,7 @@ classdef reduced_ly < mcmc.model.template
 			self.n_params = 7;
 			self.param_names = {'X','Y','Z','Alpha','Beta','t0','EMGa'};
 			self.param_symbols = {'X','Y','Z','\alpha','\beta','t_0','A_{EMG}'};
-			self.param_units = {'','','','ms','ms','ms',''};
+			self.param_units = {'','','','s^{-1}','s^{-1}','ms',''};
 			
 			self.n_fitted = 7;
 			self.skip_fit = zeros(1,self.n_fitted);

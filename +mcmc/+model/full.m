@@ -31,7 +31,7 @@ classdef full < mcmc.model.template
 			self.n_params = 9;
 			self.param_names = {'Gee','Gei','Gese','Gesre','Gsrs','Alpha','Beta','t0','EMGa'};
 			self.param_symbols = {'G_{ee}','G_{ei}','G_{ese}','G_{esre}','G_{srs}','\alpha','\beta','t_0','A_{EMG}'};
-			self.param_units = {'','','','','','ms','ms','ms',''};
+			self.param_units = {'','','','','','s^{-1}','s^{-1}','ms',''};
 
 			self.n_fitted = 9;
 			self.skip_fit = zeros(1,self.n_fitted);
