@@ -29,7 +29,7 @@ function plot_timecourse(f,nocolor)
 
 	xv = 1:f.latest;
 	
-	contaminated = tracking.chisq_outliers(f.chisq);
+	contaminated = braintrack_utils.chisq_outliers(f.chisq);
 	yv(contaminated,:) = NaN;
 	
 	for j = 1:length(param_names)

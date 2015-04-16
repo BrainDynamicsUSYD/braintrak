@@ -5,7 +5,7 @@ function blobs(f)
 	chisq = f.chisq;
 	state_color = f.state_colors;
 	cdata = braintrack_utils.state_cdata;
-	contaminated = tracking.chisq_outliers(chisq);
+	contaminated = braintrack_utils.chisq_outliers(chisq);
 
 
 	for j = 1:size(cdata,1)
