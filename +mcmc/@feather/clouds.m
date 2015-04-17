@@ -26,4 +26,4 @@ function clouds(f)
 	end
 	colormap(cdata)
 	set(gca,'CLim',[1,size(cdata,1)])
-	se.paper_surface_hg2
+	tent.surface_hg2
