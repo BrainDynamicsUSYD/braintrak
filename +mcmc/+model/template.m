@@ -10,14 +10,14 @@ classdef (Abstract) template < matlab.mixin.Copyable
 		param_units
 
 		n_fitted % Expect to change during fitting. Number of parameters being fitted. this could be different if skip_fit changes
-		initial_step_size
-		limits
+		initial_step_size % Standard deviations for initial chain (before adaptive covariance matrix is calculated)
+		limits % Upper and lower bounds on parameter values
 		skip_fit % Expect to change during fitting. 1 means distribution is fixed, 2 means parameter AND distribution are fixed
 		electrodes % So that the model can choose its behaviour based on the electrodes
 	
-		target_f % Used by normalization, set by prepare_for_fit()
-		target_P
-		prior_pp
+		target_f % Frequencies present in the data 
+		target_P % Experimental power spectrum
+		prior_pp % Shape of the prior distribution (a struct array, one for each parameter)
 
 	end
 
