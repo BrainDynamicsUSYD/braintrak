@@ -3,6 +3,8 @@ function plot_timecourse(f,nocolor)
 		nocolor = false;
 	end
 
+	figure
+	
 	m = f.model;
 	if isempty(m.param_symbols)
 		disp('Retrieving model parameter symbols and units using new instance of the class')
