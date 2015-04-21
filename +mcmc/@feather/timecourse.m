@@ -39,12 +39,13 @@ function plot_timecourse(f,nocolor)
 		box(ax(j),'on');
 
 		if nocolor
-			plot(xv,yv(:,j))
+			plot(xv/3600,yv(:,j))
 			hold on
 		else
-			f.plot_statecolored(xv,yv(:,j));
+			f.plot_statecolored(xv/3600,yv(:,j));
 		end
 
+		xlabel('Time (hours)')
 		if isempty(param_units{j})
 			ylabel(ax(j),param_symbols{j})
 		else
