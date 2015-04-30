@@ -1,7 +1,7 @@
 function [f,bic] = fit_br_bic(idx)
-	matlabpool_cluster(12)
+	romesh_utils.matlabpool_cluster(12)
 	tic;
-	eegdb = eeg_database;
+	eegdb = data.eeg_database;
 	files = eegdb.get('br_tfs','EC');
 	eegdb.close();
 

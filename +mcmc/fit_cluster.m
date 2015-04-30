@@ -16,7 +16,7 @@ function fdata = fit_cluster(model,dataset,subject_idx,npts_per_fit,suffix)
 		d = mcmc.load_subject_data(dataset,subject_idx,{'all'});
 		disp('Multi-electrode fitting selected')
 	else
-		d = mcmc.load_subject_data(dataset,subject_idx,{'Cz'});
+		d = mcmc.load_subject_data(dataset,subject_idx);
 		disp('Single-electrode fitting selected')
 	end
 
