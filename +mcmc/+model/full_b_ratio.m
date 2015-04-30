@@ -13,7 +13,7 @@ classdef full_b_ratio < mcmc.model.full
 			self.n_params = 9;
 			self.param_names = {'Gee','Gei','Gese','Gesre','Gsrs','Alpha','Beta/Alpha','t0','EMGa'};
 			self.param_symbols = {'G_{ee}','G_{ei}','G_{ese}','G_{esre}','G_{srs}','\alpha','\beta/\alpha','t_0','A_{EMG}'};
-			self.param_units = {'','','','','','ms','','ms',''};
+			self.param_units = {'','','','','','s^{-1}','','ms',''};
 
 			self.n_fitted = 9;
 			self.skip_fit = zeros(1,self.n_fitted);

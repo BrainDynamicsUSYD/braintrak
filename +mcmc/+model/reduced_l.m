@@ -31,7 +31,7 @@ classdef reduced_l < mcmc.model.template
 			self.n_params = 8;
 			self.param_names = {'Gee','Gei','Y','Z','Alpha','Beta','t0','EMGa'};
 			self.param_symbols = {'G_{ee}','G_{ei}','Y','Z','\alpha','\beta','t_0','A_{EMG}'};
-			self.param_units = {'','','','','ms','ms','ms',''};
+			self.param_units = {'','','','','s^{-1}','s^{-1}','ms',''};
 
 			self.n_fitted = 8;
 			self.skip_fit = zeros(1,self.n_fitted);

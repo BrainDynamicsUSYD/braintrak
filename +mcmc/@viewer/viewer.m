@@ -334,6 +334,7 @@ classdef viewer < handle
 				end
 			end
 
+			axes(self.tent_ax); % This way the user can set the title externally easily
 			drawnow update
 		end
 

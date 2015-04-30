@@ -7,8 +7,8 @@ function chain_diagnostics(model,out,posterior_out,j_burnin,automode)
 
 	% Check the chain properties
 	%a = round(0.2*npoints):round(0.3*npoints);
-	a = j_burnin:(j_burnin+round(0.5*npoints));
-	b = (j_burnin+round(0.5*npoints)):round(npoints);
+	a = j_burnin:(j_burnin+round(0.5*(npoints-j_burnin)));
+	b = (j_burnin+round(0.5*(npoints-j_burnin))):round(npoints);
 	c = 1:j_burnin;
 
 	m1 = mean(out(a,:));

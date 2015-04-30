@@ -3,6 +3,8 @@ function plot_timecourse(f,nocolor)
 		nocolor = false;
 	end
 
+	figure
+	
 	m = f.model;
 	if isempty(m.param_symbols)
 		disp('Retrieving model parameter symbols and units using new instance of the class')
@@ -29,7 +31,7 @@ function plot_timecourse(f,nocolor)
 
 	xv = 1:f.latest;
 	
-	contaminated = tracking.chisq_outliers(f.chisq);
+	contaminated = braintrack_utils.chisq_outliers(f.chisq);
 	yv(contaminated,:) = NaN;
 	
 	for j = 1:length(param_names)
@@ -37,12 +39,13 @@ function plot_timecourse(f,nocolor)
 		box(ax(j),'on');
 
 		if nocolor
-			plot(xv,yv(:,j))
+			plot(xv/3600,yv(:,j))
 			hold on
 		else
-			f.plot_statecolored(xv,yv(:,j));
+			f.plot_statecolored(xv/3600,yv(:,j));
 		end
 
+		xlabel('Time (hours)')
 		if isempty(param_units{j})
 			ylabel(ax(j),param_symbols{j})
 		else

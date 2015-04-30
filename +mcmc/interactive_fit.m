@@ -27,7 +27,7 @@ function interactive_fit(fit)
 	hold off
 
 	h.tent_ax = axes('Parent',h.fig,'Position',[0.6 0.35 0.35 0.6]);
-	se.paper_surface_hg2;
+	tent.surface_hg2;
 	delete(findobj(h.tent_ax,'type','Surface'))
 	[x,y,z,u] = tent.compute;
 	h.tent_surf = mesh(x,y,z,u);
@@ -78,7 +78,7 @@ function draw(m,pars,h)
 		P = NaN;
 		stab = false;
 	end
-	a=get_pkf(f,P);
+	a=model.get_pkf(f,P);
 	%pks = [a.alpha_maxf,a.sigma_maxf,a.beta_maxf,a.gamma_maxf]
 
 	beta_f = a.beta_maxf/a.alpha_maxf

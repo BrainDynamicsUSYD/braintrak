@@ -1,12 +1,5 @@
 classdef reduced_alpha_emphasized < mcmc.model.reduced
-	% This model is set up to fit t0 keeping the prior fixed if the alpha peak is not present
-	% Note that prepare_for_fit must be used before spectrum() can be used
-	% Uniform priors and DB initial fit
-	% Note that this does sum over k
-
-	properties
-	end
-
+	% This model is the same as reduced, but with increased alpha weighting
 
 	methods
 		function self = reduced_alpha_emphasized() % Constructor
@@ -15,9 +8,8 @@ classdef reduced_alpha_emphasized < mcmc.model.reduced
 		end
 
 		function w = get_weights(self,target_f) % Default weighting function
-			w = ones(size(target_f));
-			w = target_f.^-1; % Decades equally weighted
-			w(target_f > 8 & target_f < 12) = 15*w(target_f > 8 & target_f < 12); % Increased alpha weighting
+			w = get_weights@mcmc.model.reduced(self,target_f);
+			w(target_f > 7 & target_f < 12) = 10*w(target_f > 7 & target_f < 12); % Increase alpha weighting
 		end
 	end
 end
