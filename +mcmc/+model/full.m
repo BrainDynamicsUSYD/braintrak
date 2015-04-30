@@ -36,7 +36,7 @@ classdef full < mcmc.model.template
 			self.n_fitted = 9;
 			self.skip_fit = zeros(1,self.n_fitted);
 
-			self.initial_step_size = [0.4  0.4  1  1  0.2  5  40  0.005  0.0001];
+			self.initial_step_size = [0.4  0.4  1  1  0.2  5  40  0.005  0.001];
 		   	self.limits = [ eps  -40        eps     -40      -14      10      100    0.075   0  ;...
 		      		        20   -eps       40      -eps      -eps      100    800    0.14   0.02  ];
 			

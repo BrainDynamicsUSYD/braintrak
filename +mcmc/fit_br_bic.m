@@ -20,33 +20,33 @@ function [f,bic] = fit_br_bic(idx)
 
 		switch idx
 			case 1 % Full model
-				m = mcmc.model.full_b_ratio;
+				m = mcmc.model.full;
 				skip_fit = [0 0 0 0 0 0 0 0 0];
 			case 2
-				m = mcmc.model.full_b_ratio; % Fixed beta/alpha
+				m = mcmc.model.full;
 				skip_fit = [0 0 0 0 0 0 0 0 2];
 				initial_params_override = [NaN NaN NaN NaN NaN NaN NaN NaN 0 ];
 			case 3
-				m = mcmc.model.full_b_ratio; % Fixed beta/alpha
+				m = mcmc.model.full_b_ratio;
 				skip_fit = [0 0 0 0 0 0 2 0 0];
 				initial_params_override = [NaN NaN NaN NaN NaN NaN 4 NaN NaN ];
 			case 4
-				m = mcmc.model.full_b_ratio; % Fixed beta/alpha
+				m = mcmc.model.full_b_ratio;
 				skip_fit = [0 0 0 0 0 0 2 0 0];
 				initial_params_override = [NaN NaN NaN NaN NaN NaN 10 NaN NaN ];
 			case 5
-				m = mcmc.model.full_b_ratio; % Fixed beta/alpha
+				m = mcmc.model.full_b_ratio;
 				skip_fit = [0 0 0 0 0 0 2 0 2];
 				initial_params_override = [NaN NaN NaN NaN NaN NaN 4 NaN 0 ];
 			case 6
-				m = mcmc.model.full_b_ratio; % Fixed beta/alpha
+				m = mcmc.model.full_b_ratio;
 				skip_fit = [0 0 0 0 0 0 2 0 2];
 				initial_params_override = [NaN NaN NaN NaN NaN NaN 10 NaN 0 ];
 			case 7 
-				m = mcmc.model.reduced_b_ratio;
+				m = mcmc.model.reduced;
 				skip_fit = [0 0 0 0 0 0 0];
 			case 8
-				m = mcmc.model.reduced_b_ratio; 
+				m = mcmc.model.reduced; 
 				skip_fit = [0 0 0 0 0 0 2];
 				initial_params_override = [NaN NaN NaN NaN NaN NaN 0 ];
 			case 9
