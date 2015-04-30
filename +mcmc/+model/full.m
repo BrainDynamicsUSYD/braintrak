@@ -38,7 +38,7 @@ classdef full < mcmc.model.template
 
 			self.initial_step_size = [0.4  0.4  1  1  0.2  5  40  0.005  0.0001];
 		   	self.limits = [ eps  -40        eps     -40      -14      10      100    0.075   0  ;...
-		      		        20   -eps       40      -eps      -eps      100    800    0.14   0.01  ];
+		      		        20   -eps       40      -eps      -eps      100    800    0.14   0.02  ];
 			
 			self.kmax = 4;
 			self.k0 = 10; % Volume conduction parameter
@@ -108,7 +108,7 @@ classdef full < mcmc.model.template
 		        P = P + k2u(j,2).*abs(T_prefactor./(k2u(j,1)*re2+q2re2)).^2 * k2_volconduct(j); % For use with the efficient way
 		    end
 
-		    P = P + 1e-9*pars(9)*self.emg; % Add the EMG component
+		    P = P + 1e-12*pars(9)*self.emg; % Add the EMG component
 		    
 		    P = P./utils.mex_trapz(self.target_f(self.weights>0),P(self.weights>0));
 		    P = self.normalization_target*P;
