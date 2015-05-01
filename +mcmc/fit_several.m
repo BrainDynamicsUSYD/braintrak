@@ -5,7 +5,7 @@ function fdata = fit_several(model,dataset,subject_idx,t_increment,npts_per_fit)
 	% fit_single(_parallel) actually does the fitting of the 8 parameters
 
 	%system(sprintf('mkdir -p %s_testfit2',subject));
-	debugmode = true;
+	debugmode = false;
 
 	if isa(model,'mcmc.model.spatial_t0_2d') || isa(model,'mcmc.model.template_spatial')
 		d = mcmc.load_subject_data(dataset,subject_idx,{'all'});
@@ -42,7 +42,7 @@ function fdata = fit_several(model,dataset,subject_idx,t_increment,npts_per_fit)
 			%[fit_data(j),plot_data(j)] = mcmc.fit(model,d.f(:),target_P,initial_pp,fit_data(j-1).fitted_params,npts_per_fit,target_state{j},[],debugmode);			
             fdata.insert(fit_data(j),plot_data(j),t_increment(j));
 		end
-		%fdata.plot(j)
+		fdata.plot(j)
 	end
 	toc;
 	fdata.compress()
