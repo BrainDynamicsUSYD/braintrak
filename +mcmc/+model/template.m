@@ -150,9 +150,14 @@ classdef (Abstract) template < matlab.mixin.Copyable
 			end
 
 			for j = 1:size(lim,2)
-				posterior_pp.x(:,j) = linspace(lim(1,j),lim(2,j),200);
-				posterior_pp.y(:,j) = hist(out(:,j),posterior_pp.x(:,j));
-				posterior_pp.y(:,j) = smooth(posterior_pp.y(:,j),15);
+				%x1 = linspace(lim(1,j),lim(2,j),15); % Histogram bins
+				%posterior_pp.x(:,j) = linspace(lim(1,j),lim(2,j),50); % Final resolution
+				posterior_pp.x(:,j) = linspace(lim(1,j),lim(2,j),50);
+				[posterior_pp.y(:,j)] = ksdensity(out(:,j),posterior_pp.x(:,j));
+
+				%y1 = hist(out(:,j),x1);
+				%posterior_pp.y(:,j) = csaps(x1,y1,1,posterior_pp.x(:,j)) 
+				%posterior_pp.y(:,j) = smooth(posterior_pp.y(:,j),0.3,'rloess');
 				posterior_pp.y(:,j) = posterior_pp.y(:,j)/trapz(posterior_pp.x(:,j),posterior_pp.y(:,j));
 				posterior_pp.ndx(j) = 1/(posterior_pp.x(2,j)-posterior_pp.x(1,j));
 			end
