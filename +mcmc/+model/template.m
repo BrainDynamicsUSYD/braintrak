@@ -18,7 +18,7 @@ classdef (Abstract) template < matlab.mixin.Copyable
 		target_f % Frequencies present in the data 
 		target_P % Experimental power spectrum
 		prior_pp % Shape of the prior distribution (a struct array, one for each parameter)
-
+		prior_size = 50; % Number of points in the prior
 	end
 
    	methods(Abstract)
@@ -80,7 +80,7 @@ classdef (Abstract) template < matlab.mixin.Copyable
 		function w = get_weights(self,target_f) % Default weighting function
 			w = ones(size(target_f));
 			w = target_f.^-1; % Decades equally weighted
-			%w(target_f < 1) = 0; % Ignore frequencies below 1Hz 
+			w(target_f < 1) = 0; % Ignore frequencies below 1Hz 
 			w = w(:);
 		end
 
@@ -96,8 +96,8 @@ classdef (Abstract) template < matlab.mixin.Copyable
 
 		function prior_pp = uniform_priors(self)
 		    for j = 1:size(self.limits,2)
-		        a=linspace(self.limits(1,j),self.limits(2,j),200);
-		        b=ones(200,1);
+		        a=linspace(self.limits(1,j),self.limits(2,j),self.prior_size);
+		        b=ones(self.prior_size,1);
 		        prior_pp.x(:,j) = a(:);
 		        prior_pp.y(:,j) = b(:);
 		        prior_pp.ndx(j) = 1/(a(2)-a(1));
@@ -150,12 +150,12 @@ classdef (Abstract) template < matlab.mixin.Copyable
 			end
 
 			for j = 1:size(lim,2)
-				% posterior_pp.x(:,j) = linspace(lim(1,j),lim(2,j),100);
-				% [posterior_pp.y(:,j)] = ksdensity(out(:,j),posterior_pp.x(:,j));
+				%posterior_pp.x(:,j) = linspace(lim(1,j),lim(2,j),self.prior_size);
+				%[posterior_pp.y(:,j)] = ksdensity(out(:,j),posterior_pp.x(:,j));
 				
-				posterior_pp.x(:,j) = linspace(lim(1,j),lim(2,j),200);
+				posterior_pp.x(:,j) = linspace(lim(1,j),lim(2,j),self.prior_size);
 				posterior_pp.y(:,j) = hist(out(:,j),posterior_pp.x(:,j));
-				posterior_pp.y(:,j) = smooth(posterior_pp.y(:,j),15);
+				%posterior_pp.y(:,j) = smooth(posterior_pp.x(:,j),posterior_pp.y(:,j),0.05,'lowess');
 
 				%y1 = hist(out(:,j),x1);
 				%posterior_pp.y(:,j) = csaps(x1,y1,1,posterior_pp.x(:,j)) 
