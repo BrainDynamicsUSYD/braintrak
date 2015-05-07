@@ -18,7 +18,7 @@ classdef (Abstract) template < matlab.mixin.Copyable
 		target_f % Frequencies present in the data 
 		target_P % Experimental power spectrum
 		prior_pp % Shape of the prior distribution (a struct array, one for each parameter)
-		prior_size = 100; % Number of points in the prior
+		prior_size = 50; % Number of points in the prior
 	end
 
    	methods(Abstract)
@@ -150,26 +150,55 @@ classdef (Abstract) template < matlab.mixin.Copyable
 			end
 
 			for j = 1:size(lim,2)
-				x_final = linspace(lim(1,j),lim(2,j),self.prior_size+1); % The final bin edges
+				% CSAPS
+				% x_final = linspace(lim(1,j),lim(2,j),self.prior_size+1); % The final bin edges
+				% x_center = x_final(2:end)-(x_final(2)-x_final(1))/2;
+				% y_center = hist(out(:,j),x_center);
+				% s = csaps(x_center,y_center,0.3);
+				% sn = fnxtr(s);
+				% y_final = ppval(sn,x_final);
+				% y_final(y_final < 0) = 0;
+				% posterior_pp.x(:,j) =  x_final;
+				% posterior_pp.y(:,j) = y_final./trapz(x_final,y_final);
+				% posterior_pp.ndx(j) = 1/(x_final(2)-x_final(1));
+
+				% KSDENSITY
+				% x_final = linspace(lim(1,j),lim(2,j),self.prior_size);
+				% posterior_pp.x(:,j) = x_final;
+				% posterior_pp.y(:,j) = ksdensity(out(:,j),posterior_pp.x(:,j),'support',lim(:,j));
+				% posterior_pp.ndx(j) = 1/(x_final(2)-x_final(1));
+
+				% ORIGINAL - FLAWED ENDPOINTS
+				% posterior_pp.x(:,j) = linspace(lim(1,j),lim(2,j),self.prior_size);
+				% posterior_pp.y(:,j) = hist(out(:,j),posterior_pp.x(:,j));
+				% %posterior_pp.y(:,j) = smooth(posterior_pp.y(:,j),15);
+				% posterior_pp.y(:,j) = posterior_pp.y(:,j)/trapz(posterior_pp.x(:,j),posterior_pp.y(:,j));
+				% posterior_pp.ndx(j) = 1/(posterior_pp.x(2,j)-posterior_pp.x(1,j));
+
+				% ORIGINAL - EXTRAP
+				x_final = linspace(lim(1,j),lim(2,j),self.prior_size); % The final bin edges
 				x_center = x_final(2:end)-(x_final(2)-x_final(1))/2;
 				y_center = hist(out(:,j),x_center);
-
-				% Rescale the problem to produce the smoothing spline...
-				% Now construct a smoothing spline
-				%x_spline = x_center/max(abs(x_center)); %
-
-				s = csaps(x_center,y_center,0.8);
-				sn = fnxtr(s);
-				y_final = ppval(sn,x_final);
+				y_final = interp1(x_center,y_center,x_final,'linear','extrap');
 				y_final(y_final < 0) = 0;
-				%y_final = y_final./trapz(x_final,y_final);
-
-				posterior_pp.x(:,j) =  x_final;
+				posterior_pp.x(:,j) = x_final;
 				posterior_pp.y(:,j) = y_final./trapz(x_final,y_final);
 				posterior_pp.ndx(j) = 1/(x_final(2)-x_final(1));
 
-				[posterior_pp.y(:,j),posterior_pp.x(:,j)] = ksdensity(out(:,j),x_final,'support',lim(:,j));
-				%keyboard
+				% plot(x_final,y_final,'b')
+				% hold on
+				% plot(x_center,y_center,'r--');
+				% keyboard
+				% keyboard
+				% posterior_pp.x(:,j) = linspace(lim(1,j),lim(2,j),self.prior_size);
+				% posterior_pp.y(:,j) = hist(out(:,j),posterior_pp.x(:,j));
+				% %posterior_pp.y(:,j) = smooth(posterior_pp.y(:,j),15);
+				% posterior_pp.y(:,j) = posterior_pp.y(:,j)/trapz(posterior_pp.x(:,j),posterior_pp.y(:,j));
+				% posterior_pp.ndx(j) = 1/(posterior_pp.x(2,j)-posterior_pp.x(1,j));
+
+
+
+
 				% if j == 5
 				% 	% This is the new method
 				% 	figure

@@ -24,7 +24,7 @@ classdef dummy < mcmc.model.template
 
 			self.initial_step_size = 0.1*[1 1 1 1];
 		   	self.limits = [ -20 -20 -20 -20  ;...
-		      		        20  20  20  20   ];
+		      		        20  20  20  20  ];
 			
 	
 		end
@@ -48,12 +48,7 @@ classdef dummy < mcmc.model.template
 		% end
 
 		function prepare_for_fit(self,a,b,c,d,e);
-		end
-
-		function post = xyz_posterior(self,out)
-			xyz_lim = [0  -1     0 ; 1   1   1.3];
-			post = self.make_posterior(out(:,1:3),xyz_lim);
-		end
+        end
 
 		function p = p_from_params(self,pars)
 			p = model.params;
@@ -84,7 +79,7 @@ classdef dummy < mcmc.model.template
 			end
 
 			means = [1,-3,2,-5 20];
-			stds = [4, 12, NaN,2, 2];
+			stds = [4, 12, NaN,2, 3];
 
 			p = zeros(1,4);
 
@@ -100,7 +95,7 @@ classdef dummy < mcmc.model.template
 		end
 
 		function xyz = get_xyz(self,pars)
-			xyz = [1 1 1];
+			xyz = repmat([0.1 0.1 0.1],size(pars,1),1);
 		end
 
 
