@@ -107,7 +107,7 @@ classdef (Abstract) template < matlab.mixin.Copyable
 		% This is called by probability
 		% Overload this to perform more sophisticated checks
 		function valid = validate_params(self,pars)
-			valid = ~any(pars > self.limits(2,:) | pars < self.limits(1,:));
+			valid = ~any(pars >= self.limits(2,:) | pars <= self.limits(1,:));
 		end
 
 		function [chisq,prob,likelihood,P] = probability(self,pars)
