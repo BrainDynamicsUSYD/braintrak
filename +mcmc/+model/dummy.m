@@ -84,14 +84,14 @@ classdef dummy < mcmc.model.template
 			end
 
 			means = [1,-3,2,-5 20];
-			stds = [2, 6, NaN,2, 4];
+			stds = [4, 12, NaN,2, 2];
 
 			p = zeros(1,4);
 
 			p(1) = self.g(pars(1),means(1),stds(1));
 			p(2) = self.g(pars(2),means(2),stds(2));
 			lambda = means(3).^-1;
-			p(3) = lambda*exp(-lambda*pars(3)).*(pars(3)>0);
+			p(3) = lambda*exp(lambda*pars(3)).*(pars(3)>0);
 			p(4) = self.g(pars(4),means(4),stds(4)) + self.g(pars(4),means(5),stds(5));
 
 			likelihood =  prod(p); % Probability of the state

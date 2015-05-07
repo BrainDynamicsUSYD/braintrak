@@ -18,7 +18,7 @@ classdef (Abstract) template < matlab.mixin.Copyable
 		target_f % Frequencies present in the data 
 		target_P % Experimental power spectrum
 		prior_pp % Shape of the prior distribution (a struct array, one for each parameter)
-		prior_size = 50; % Number of points in the prior
+		prior_size = 100; % Number of points in the prior
 	end
 
    	methods(Abstract)
@@ -158,7 +158,7 @@ classdef (Abstract) template < matlab.mixin.Copyable
 				% Now construct a smoothing spline
 				%x_spline = x_center/max(abs(x_center)); %
 
-				s = csaps(x_center,y_center,0.3);
+				s = csaps(x_center,y_center,0.8);
 				sn = fnxtr(s);
 				y_final = ppval(sn,x_final);
 				y_final(y_final < 0) = 0;
@@ -168,24 +168,28 @@ classdef (Abstract) template < matlab.mixin.Copyable
 				posterior_pp.y(:,j) = y_final./trapz(x_final,y_final);
 				posterior_pp.ndx(j) = 1/(x_final(2)-x_final(1));
 
-				% This is the new method
-				figure
-				plot(posterior_pp.x(:,j),posterior_pp.y(:,j),'b');
-				hold on
-				scatter(x_center,y_center./trapz(x_final,y_final),30,'go');
-
+				[posterior_pp.y(:,j),posterior_pp.x(:,j)] = ksdensity(out(:,j),x_final,'support',lim(:,j));
 				%keyboard
+				% if j == 5
+				% 	% This is the new method
+				% 	figure
+				% 	plot(posterior_pp.x(:,j),posterior_pp.y(:,j),'b');
+				% 	hold on
+				% 	scatter(x_center,y_center./trapz(x_final,y_final),30,'go');
 
-				% % And the original method
-				xx = linspace(lim(1,j),lim(2,j),200);
-				yy = hist(out(:,j),xx);
-				yy = smooth(yy,15);
-				yy = yy/trapz(xx,yy);
-				plot(xx,yy,'r--');
-				legend('csaps 0.3 smoothing','50 histogram bins','Original moving average')
-				title(sprintf('%s posterior - Tag 59771b2, csaps extrapolation',self.param_symbols(j)));
+				% 	%keyboard
 
-				keyboard
+				% 	% % And the original method
+				% 	xx = linspace(lim(1,j),lim(2,j),200);
+				% 	yy = hist(out(:,j),xx);
+				% 	yy = smooth(yy,15);
+				% 	yy = yy/trapz(xx,yy);
+				% 	plot(xx,yy,'r--');
+				% 	legend('csaps 0.3 smoothing','50 histogram bins','Original moving average')
+				% 	title(sprintf('%s posterior - Tag 0dee2d6, csaps extrapolation',self.param_symbols{j}));
+
+				% 	keyboard
+				% end
 				% keyboard
 				% posterior_pp.x(:,j) = x1(2:end)-(x1(2)-x1(1))/2; % Use self.prior_size bin centers
 				% posterior_pp.y(:,j) = hist(out(:,j),posterior_pp.x(:,j));

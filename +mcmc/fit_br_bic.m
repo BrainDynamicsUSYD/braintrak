@@ -27,44 +27,18 @@ function [f,bic] = fit_br_bic(idx)
 				skip_fit = [0 0 0 0 0 0 0 0 2];
 				initial_params_override = [NaN NaN NaN NaN NaN NaN NaN NaN 0 ];
 			case 3
-				m = mcmc.model.full_b_ratio;
-				skip_fit = [0 0 0 0 0 0 2 0 0];
-				initial_params_override = [NaN NaN NaN NaN NaN NaN 4 NaN NaN ];
-			case 4
-				m = mcmc.model.full_b_ratio;
-				skip_fit = [0 0 0 0 0 0 2 0 0];
-				initial_params_override = [NaN NaN NaN NaN NaN NaN 10 NaN NaN ];
-			case 5
-				m = mcmc.model.full_b_ratio;
-				skip_fit = [0 0 0 0 0 0 2 0 2];
-				initial_params_override = [NaN NaN NaN NaN NaN NaN 4 NaN 0 ];
-			case 6
-				m = mcmc.model.full_b_ratio;
-				skip_fit = [0 0 0 0 0 0 2 0 2];
-				initial_params_override = [NaN NaN NaN NaN NaN NaN 10 NaN 0 ];
-			case 7 
+				m = mcmc.model.full_emgf;
+				skip_fit = [0 0 0 0 0 0 0 0 0 0];
+			case 4 
 				m = mcmc.model.reduced;
 				skip_fit = [0 0 0 0 0 0 0];
-			case 8
+			case 5
 				m = mcmc.model.reduced; 
 				skip_fit = [0 0 0 0 0 0 2];
 				initial_params_override = [NaN NaN NaN NaN NaN NaN 0 ];
-			case 9
-				m = mcmc.model.reduced_b_ratio; 
-				skip_fit = [0 0 0 0 2 0 0];
-				initial_params_override = [NaN NaN NaN NaN 4 NaN NaN ];
-			case 10
-				m = mcmc.model.reduced_b_ratio; 
-				skip_fit = [0 0 0 0 2 0 0];
-				initial_params_override = [NaN NaN NaN NaN 10 NaN NaN ];			
-			case 11 
-				m = mcmc.model.reduced_b_ratio; 
-				skip_fit = [0 0 0 0 2 0 2];
-				initial_params_override = [NaN NaN NaN NaN 4 NaN 0 ];
-			case 12 
-				m = mcmc.model.reduced_b_ratio; 
-				skip_fit = [0 0 0 0 2 0 2];
-				initial_params_override = [NaN NaN NaN NaN 10 NaN 0 ];
+			case 6
+				m = mcmc.model.reduced_emgf; 
+				skip_fit = [0 0 0 0 0 0 0 0];
 			otherwise
 				error('Undefined index')
 		end

@@ -21,7 +21,7 @@ function f = fit_single(model,f,P,npts,prior_pp,initial_values)
 	model.set_electrodes('Cz');
 
 	[~,~,f] =  mcmc.fit(model,f,P,prior_pp,initial_values,npts);
-	f = mcmc.feather(model,fit_data,plot_data);
+	%f = mcmc.feather(model,fit_data,plot_data);
 	
 	fprintf('Fit took %.2f seconds\n',toc);
 
