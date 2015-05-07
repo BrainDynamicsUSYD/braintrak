@@ -1,5 +1,5 @@
 function [f,bic] = fit_br_bic(idx)
-	romesh_utils.matlabpool_cluster(12)
+	romesh_utils.matlabpool_cluster(10)
 	tic;
 	eegdb = data.eeg_database;
 	files = eegdb.get('br_tfs','EC');
@@ -10,7 +10,7 @@ function [f,bic] = fit_br_bic(idx)
 	f(n_fits) = mcmc.feather;
 
 	debugmode = false;
-	npts_per_fit = 1e5;
+	npts_per_fit = 5e4;
 
 	parfor j = 1:n_fits
 
@@ -55,6 +55,6 @@ function [f,bic] = fit_br_bic(idx)
 		bic(j) = f(j).fit_data.bic;
 	end
 
-	save(sprintf('bic_lf_case_%d_all',idx),'bic','f','-v7.3');
+	save(sprintf('bic_master_case_%d',idx),'bic','f','-v7.3');
 	toc;
 

@@ -22,7 +22,7 @@ function fdata = fit_cluster(model,dataset,subject_idx,npts_per_fit,suffix)
 
 	model.set_electrodes(d);
 
-	t_increment = 1:1:10; % This is the most we can do
+	t_increment = 1:1:length(d.t); % This is the most we can do
 	% Find the first increment with a clean spectrum
 	clean_idx = find(d.nspec >= 20,1,'first');
 	if isempty(clean_idx) || clean_idx > t_increment(end)
