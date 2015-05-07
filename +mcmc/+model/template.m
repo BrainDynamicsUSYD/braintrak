@@ -150,32 +150,6 @@ classdef (Abstract) template < matlab.mixin.Copyable
 			end
 
 			for j = 1:size(lim,2)
-				% CSAPS
-				% x_final = linspace(lim(1,j),lim(2,j),self.prior_size+1); % The final bin edges
-				% x_center = x_final(2:end)-(x_final(2)-x_final(1))/2;
-				% y_center = hist(out(:,j),x_center);
-				% s = csaps(x_center,y_center,0.3);
-				% sn = fnxtr(s);
-				% y_final = ppval(sn,x_final);
-				% y_final(y_final < 0) = 0;
-				% posterior_pp.x(:,j) =  x_final;
-				% posterior_pp.y(:,j) = y_final./trapz(x_final,y_final);
-				% posterior_pp.ndx(j) = 1/(x_final(2)-x_final(1));
-
-				% KSDENSITY
-				% x_final = linspace(lim(1,j),lim(2,j),self.prior_size);
-				% posterior_pp.x(:,j) = x_final;
-				% posterior_pp.y(:,j) = ksdensity(out(:,j),posterior_pp.x(:,j),'support',lim(:,j));
-				% posterior_pp.ndx(j) = 1/(x_final(2)-x_final(1));
-
-				% ORIGINAL - FLAWED ENDPOINTS
-				% posterior_pp.x(:,j) = linspace(lim(1,j),lim(2,j),self.prior_size);
-				% posterior_pp.y(:,j) = hist(out(:,j),posterior_pp.x(:,j));
-				% %posterior_pp.y(:,j) = smooth(posterior_pp.y(:,j),15);
-				% posterior_pp.y(:,j) = posterior_pp.y(:,j)/trapz(posterior_pp.x(:,j),posterior_pp.y(:,j));
-				% posterior_pp.ndx(j) = 1/(posterior_pp.x(2,j)-posterior_pp.x(1,j));
-
-				% ORIGINAL - EXTRAP
 				x_final = linspace(lim(1,j),lim(2,j),self.prior_size); % The final bin edges
 				x_center = x_final(2:end)-(x_final(2)-x_final(1))/2;
 				y_center = hist(out(:,j),x_center);
@@ -184,52 +158,6 @@ classdef (Abstract) template < matlab.mixin.Copyable
 				posterior_pp.x(:,j) = x_final;
 				posterior_pp.y(:,j) = y_final./trapz(x_final,y_final);
 				posterior_pp.ndx(j) = 1/(x_final(2)-x_final(1));
-
-				% plot(x_final,y_final,'b')
-				% hold on
-				% plot(x_center,y_center,'r--');
-				% keyboard
-				% keyboard
-				% posterior_pp.x(:,j) = linspace(lim(1,j),lim(2,j),self.prior_size);
-				% posterior_pp.y(:,j) = hist(out(:,j),posterior_pp.x(:,j));
-				% %posterior_pp.y(:,j) = smooth(posterior_pp.y(:,j),15);
-				% posterior_pp.y(:,j) = posterior_pp.y(:,j)/trapz(posterior_pp.x(:,j),posterior_pp.y(:,j));
-				% posterior_pp.ndx(j) = 1/(posterior_pp.x(2,j)-posterior_pp.x(1,j));
-
-
-
-
-				% if j == 5
-				% 	% This is the new method
-				% 	figure
-				% 	plot(posterior_pp.x(:,j),posterior_pp.y(:,j),'b');
-				% 	hold on
-				% 	scatter(x_center,y_center./trapz(x_final,y_final),30,'go');
-
-				% 	%keyboard
-
-				% 	% % And the original method
-				% 	xx = linspace(lim(1,j),lim(2,j),200);
-				% 	yy = hist(out(:,j),xx);
-				% 	yy = smooth(yy,15);
-				% 	yy = yy/trapz(xx,yy);
-				% 	plot(xx,yy,'r--');
-				% 	legend('csaps 0.3 smoothing','50 histogram bins','Original moving average')
-				% 	title(sprintf('%s posterior - Tag 0dee2d6, csaps extrapolation',self.param_symbols{j}));
-
-				% 	keyboard
-				% end
-				% keyboard
-				% posterior_pp.x(:,j) = x1(2:end)-(x1(2)-x1(1))/2; % Use self.prior_size bin centers
-				% posterior_pp.y(:,j) = hist(out(:,j),posterior_pp.x(:,j));
-				% %posterior_pp.y(:,j) = smooth(posterior_pp.x(:,j),posterior_pp.y(:,j),0.05,'lowess');
-
-				% %y1 = hist(out(:,j),x1);
-				% %posterior_pp.y(:,j) = csaps(x1,y1,1,posterior_pp.x(:,j)) 
-				% %posterior_pp.y(:,j) = smooth(posterior_pp.y(:,j),0.3,'rloess');
-				% posterior_pp.y(:,j) = posterior_pp.y(:,j)/trapz(posterior_pp.x(:,j),posterior_pp.y(:,j));
-				% posterior_pp.ndx(j) = 1/(posterior_pp.x(2,j)-posterior_pp.x(1,j));
-				% keyboard
 			end
 		end
 
