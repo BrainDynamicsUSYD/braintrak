@@ -58,7 +58,7 @@ classdef reduced_emgf < mcmc.model.reduced
 		    stab=d(1)>0 && ~any(real(d(2:end))<0 & imag(d(2:end)).*imag(d(1:end-1))<0);
 
 		    if ~stab
-		    	%return
+		    	return
 		    end
 
 		    % And the spectrum. At k = 0
