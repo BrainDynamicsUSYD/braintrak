@@ -17,7 +17,7 @@ classdef reduced_emgf < mcmc.model.reduced
 				self.skip_fit = zeros(1,self.n_fitted);
 				self.initial_step_size = [0.1 0.1 0.1 20  100  0.002  1 1]; % GOOD
 			   	self.limits = [ eps  -1   eps       10      100    0.075   0   10 ;...
-			      		        1     1     1      100      800    0.14    10  50];
+			      		        1     1     1      100      800    0.14    1  50];
 
 			    self.kmax = 4; % Number of modes to simulate
 				self.p = model.params;
@@ -45,11 +45,11 @@ classdef reduced_emgf < mcmc.model.reduced
 			% Splitting this function allows inheritance after checking limits
 		    if self.compute_Mtot % If this flag has been set to false, then these fields are already present
 		        % Should be fine to let that just throw an undefined variable error later if this isn't the case
-		       self.stab_Mtot = exp(1i*self.stab_w*pars(6));
-		       self.spec_Mtot = exp(1i*self.spec_w*pars(6));
+		        self.stab_Mtot = exp(1i*self.stab_w*pars(6));
+		        self.spec_Mtot = exp(1i*self.spec_w*pars(6));
 		    end
 
-			stab_L = 1./((1-1i*self.stab_w/pars(4)).*(1-1i*self.stab_w/pars(5)));
+		    stab_L = 1./((1-1i*self.stab_w/pars(4)).*(1-1i*self.stab_w/pars(5)));
 		    spec_L = 1./((1-1i*self.spec_w/pars(4)).*(1-1i*self.spec_w/pars(5)));
 		    zprime = (pars(4)+pars(5))^2/(pars(4)*pars(5))*pars(3); % Effectively Gsrs
 
@@ -73,18 +73,17 @@ classdef reduced_emgf < mcmc.model.reduced
 		    for j = 1:size(k2u,1)
 		        P = P + k2u(j,2).*abs(1./(one_plus_zprime.*(k2u(j,1)*re2+q2re2))).^2 * k2_volconduct(j); % For use with the efficient way
 		    end
+		    emg = (self.spec_w/(2*pi*pars(8))).^2./(1+(self.spec_w/(2*pi*pars(8))).^2).^2;
 
-		   emg = (self.spec_w/(2*pi*pars(8))).^2./(1+(self.spec_w/(2*pi*pars(8))).^2).^2;
+		    P = P + pars(7)*emg; % Add the EMG component
 
-		   P = P + 5e-1*pars(7)*emg; % Add the EMG component
+		    P = P./utils.mex_trapz(self.target_f(self.weights>0),P(self.weights>0));
+		    P = self.normalization_target*P;
+		    sqdiff = (abs(P-self.target_P)./self.target_P).^2; % This is the squared fractional difference
 		    
-		   P = P./mex_trapz(self.target_f(self.weights>0),P(self.weights>0));
-		   P = self.normalization_target*P;
-		   sqdiff = (abs(P-self.target_P)./self.target_P).^2; % This is the squared fractional difference
-		   
-		   if stab % This is only in an if statement because we still return the spectrum
-		   	chisq = sum(sqdiff(:).*self.weights(:));
-		   end
+		    if stab
+		    	chisq = sum(sqdiff(:).*self.weights(:));
+		    end
 
 		end
 		

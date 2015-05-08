@@ -37,7 +37,7 @@ classdef reduced < mcmc.model.template
 			%self.initial_step_size = 0.05.*[0.2 0.2 0.2 5 10 0.02 0.05]; % ORIGINAL
 			self.initial_step_size = [0.1 0.1 0.1 20  100  0.002  1]; % GOOD
 		   	self.limits = [ eps  -1   eps       10      100    0.075   0  ;...
-		      		        1     1     1      100      800    0.14    10  ];
+		      		        1     1     1      100      800    0.14    1  ];
 
 		    self.kmax = 4; % Number of modes to simulate
 			self.p = model.params;
@@ -104,7 +104,7 @@ classdef reduced < mcmc.model.template
 		    	%loglog(self.target_f,P,'b')
 		    end
 
-		   P = P + 5e-1*pars(7)*self.emg; % Add the EMG component
+		   P = P + pars(7)*self.emg; % Add the EMG component
 		    
 		   P = P./utils.mex_trapz(self.target_f(self.weights>0),P(self.weights>0));
 		   P = self.normalization_target*P;
