@@ -125,8 +125,8 @@ function [out,final_posterior,accept_ratio] = chain(model,initial_values,n_point
 			burnin_counter = burnin_counter + 1;
 			if burnin_counter == n_points
 				fprintf(2,'Burn-in is unusually long...\n')
-			elseif burnin_counter == 1e5
-				error('Initial burnin failed after 100000 steps - initial step size must be incorrect')
+			elseif burnin_counter == 2e5
+				error('Initial burnin failed after 200000 steps - initial step size must be incorrect')
 			end
 		end
 
