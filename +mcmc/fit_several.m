@@ -49,7 +49,7 @@ function fdata = fit_several(model,dataset,subject_idx,t_increment,npts_per_fit,
             end
             fdata.insert(fit_data(j),plot_data(j),t_increment(j));
 		end
-		fdata.plot(j)
+	%	fdata.plot(j)
 	end
 	toc;
 	fdata.compress()
