@@ -62,6 +62,7 @@ function [out,final_posterior,accept_ratio] = chain(model,initial_values,n_point
 	j = 2; % Replicates for loop, at least at the beginning
 	j_stop = n_points;
 	burnin_counter = 1;
+	stage_1_time = 0;
 
 	while j <= n_burnin+n_points
 		% For speedtest, limit the execution time to achieve real-time performance
@@ -101,17 +102,21 @@ function [out,final_posterior,accept_ratio] = chain(model,initial_values,n_point
 		if initialization_stage == 1 && accept == n_initial % Activate covariance matrix
 			% accept==n_initial means that j was set to n_initial AND that the point was accepted on this round
 			initialization_stage = 2;
+			stage_1_time = toc;
 			my_cov = cov(out(1:j,:));
 			mu = mean(out(1:j,:));
 		elseif initialization_stage == 2 && j == n_burnin % Reset acceptance ratio counter
 			initialization_stage = 3;
+			elapsed = toc;
+			stage_2_time = elapsed-stage_1_time;
+
 			if timelimit
-				eta = timelimit;
+				eta = timelimit-elapsed;
 			else
-				eta = 10*toc;
+				eta = stage_2_time/(n_burnin-n_initial)*n_points;
 			end
-			fprintf('Burn-in finished in %.2fs (ETA: %.2fs)\n',toc,eta);
-			accept = 0;
+			fprintf('Burn-in finished: S1 %.2fs (%d pts), S2 %.2fs, Remain: ~%.2fs, Total: ~%.2fs\n',stage_1_time,burnin_counter,stage_2_time,eta,eta+elapsed);
+			accept = 0; % Reset acceptance counter. The final acceptence ratio is then accept/n_points
 		end
 
 		if initialization_stage >= 2 % Do adaptation
@@ -124,9 +129,6 @@ function [out,final_posterior,accept_ratio] = chain(model,initial_values,n_point
 		else
 			j = accept + 1; % Set j to be the next point - the greedy burnin is mentioned in Haario 2001
 			burnin_counter = burnin_counter + 1;
-			if burnin_counter == n_burnin
-				fprintf(2,'Burn-in is unusually long...\n')
-			end
 			if burnin_counter == 2e5
 				error('Initial burnin failed after 200000 steps - initial step size must be incorrect')
 			end
