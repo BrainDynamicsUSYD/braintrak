@@ -36,7 +36,6 @@ function [tv,fv,spectra,nspec,nreject] = get_tfs(t,V,window_length,fft_length,re
 
 			if sum(abs(V(time_filter))>clipping) > 9 % Empirically, 9 is a good balance. This should be justified properly at some point
 				clean(j+1) = false;
-				keyboard
 			end
 
 			v_std(j+1) = std(V(time_filter));
