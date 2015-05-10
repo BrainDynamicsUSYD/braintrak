@@ -8,6 +8,7 @@ function [out,final_posterior,accept_ratio] = chain(model,initial_values,n_point
 	% that are sampled. That is, the initial greedy sampling is still carried out
 	% the same way
 
+
 	% Non-greedy start used in Rev 1578
 	if nargin < 5 || isempty(timelimit)
 		timelimit = false;
@@ -123,10 +124,11 @@ function [out,final_posterior,accept_ratio] = chain(model,initial_values,n_point
 		else
 			j = accept + 1; % Set j to be the next point - the greedy burnin is mentioned in Haario 2001
 			burnin_counter = burnin_counter + 1;
-			if burnin_counter == n_points
+			if burnin_counter == n_burnin
 				fprintf(2,'Burn-in is unusually long...\n')
-			elseif burnin_counter == 5e4
-				error('Initial burnin failed after 50000 steps - initial step size must be incorrect')
+			end
+			if burnin_counter == 2e5
+				error('Initial burnin failed after 200000 steps - initial step size must be incorrect')
 			end
 		end
 
