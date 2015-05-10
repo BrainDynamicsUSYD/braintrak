@@ -25,7 +25,7 @@ function [f,bic] = fit_br_bic(idx)
 			case 2
 				m = mcmc.model.full;
 				skip_fit = [0 0 0 0 0 0 0 0 2];
-				initial_params_override = [NaN NaN NaN NaN NaN NaN NaN NaN 0 ];
+				initial_params_override = [NaN NaN NaN NaN NaN NaN NaN NaN eps ];
 			case 3
 				m = mcmc.model.full_emgf;
 				skip_fit = [0 0 0 0 0 0 0 0 0 0];
@@ -35,7 +35,7 @@ function [f,bic] = fit_br_bic(idx)
 			case 5
 				m = mcmc.model.reduced; 
 				skip_fit = [0 0 0 0 0 0 2];
-				initial_params_override = [NaN NaN NaN NaN NaN NaN 0 ];
+				initial_params_override = [NaN NaN NaN NaN NaN NaN eps ];
 			case 6
 				m = mcmc.model.reduced_emgf; 
 				skip_fit = [0 0 0 0 0 0 0 0];

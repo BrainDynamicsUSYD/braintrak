@@ -37,8 +37,8 @@ classdef full < mcmc.model.template
 			self.skip_fit = zeros(1,self.n_fitted);
 
 			self.initial_step_size = [0.4  0.4  1  1  0.2  5  40  0.005  0.05];
-		   	self.limits = [ eps  -40        eps     -40      -5      10      100    0.075   0  ;...
-		      		        20   -eps       40      -eps      -eps      100    800    0.14   1  ];
+		   	self.limits = [ 0  -40        0     -40      -5      10      100    0.075   0  ;...
+		      		        20    0       40       0       0      100    800    0.14   1  ];
 			
 			self.kmax = 4;
 			self.k0 = 10; % Volume conduction parameter
@@ -65,7 +65,7 @@ classdef full < mcmc.model.template
 		end
 
 		function valid = validate_params(self,pars)
-			valid = ~(pars(1)/pars(2) > -0.5 || (pars(1) + pars(2)) > 1 || pars(7)/pars(6) > 20 || any(pars > self.limits(2,:) | pars < self.limits(1,:) ));
+			valid = ~(pars(1)/pars(2) > -0.5 || (pars(1) + pars(2)) > 1 || pars(7)/pars(6) > 20 || any(pars >= self.limits(2,:) | pars <= self.limits(1,:) ));
 		end
 
 		function [chisq,P] = objective(self,pars) % Calculate the objective
