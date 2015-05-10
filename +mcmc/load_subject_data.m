@@ -8,11 +8,11 @@ function fdata = load_subject_data(dataset,subject_idx,electrode)
 	end
 
 	if isunix && ~ismac
-		fdata = load(sprintf('~/usyd_postdoc/psg_data/sleep_tfs/%s_%d_lf_tfs',dataset,subject_idx));
+		fdata = load(sprintf('./psg_data/sleep_tfs/%s_%d_hf_tfs',dataset,subject_idx));
     elseif ismac
-		fdata = load(sprintf('~/usyd_postdoc/psg_data/sleep_tfs/%s_%d_lf_tfs',dataset,subject_idx));
+		fdata = load(sprintf('./psg_data/sleep_tfs/%s_%d_hf_tfs',dataset,subject_idx));
     else
-        fdata = load(sprintf('C:/Users/romesh/Desktop/usyd_postdoc/psg_data/sleep_tfs/%s_%d_lf_tfs',dataset,subject_idx));
+        fdata = load(sprintf('./psg_data/sleep_tfs/%s_%d_hf_tfs',dataset,subject_idx));
     end
 
     if ~isempty(electrode) && (length(electrode) > 1 || ~strcmp(electrode,'all'))
@@ -24,7 +24,7 @@ function fdata = load_subject_data(dataset,subject_idx,electrode)
    	end
 
 	padding_minutes = 5; % Start this many minutes before sleep onset
-	start_idx = max(1,find(fdata.state_score>2,1,'first')-padding_minutes*60);
+	start_idx = max(1,find(fdata.state_score>2,1,'first')-padding_minutes*60)
 
 	fdata.t = fdata.t(start_idx:end);
 	fdata.nspec = fdata.nspec(start_idx:end,:);

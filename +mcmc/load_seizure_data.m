@@ -26,7 +26,7 @@ function output = load_seizure(subject_idx,electrode,window_length,fft_length)
     data{:,electrode }= bsxfun(@minus,data{:,electrode},ref); % re-reference
     
     for j = 1:length(electrode)
-    	[output.t,output.f,output.s(:,:,j), output.nspec(:,j), output.n_reject(j)] = tracking.get_tfs(data.Time(:),data.(electrode{j}),window_length,fft_length,false);
+    	[output.t,output.f,output.s(:,:,j), output.nspec(:,j), output.n_reject(j)] = mcmc.get_tfs(data.Time(:),data.(electrode{j}),window_length,fft_length,false);
     	%figure
     	%tracking.spectrogram_eeg_imagesc(output.t,output.f,output.s(:,:,j),data.Time,data.(electrode{j})) 
     end
