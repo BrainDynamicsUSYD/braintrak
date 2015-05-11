@@ -9,7 +9,7 @@ classdef reduced_alpha_emphasized < mcmc.model.reduced
 
 		function w = get_weights(self,target_f) % Default weighting function
 			w = get_weights@mcmc.model.reduced(self,target_f);
-			w(target_f > 7 & target_f < 12) = 10*w(target_f > 7 & target_f < 12); % Increase alpha weighting
+			w(target_f > 6 & target_f < 10) = 25*w(target_f > 6 & target_f < 10); % Increase alpha weighting
 		end
 	end
 end
