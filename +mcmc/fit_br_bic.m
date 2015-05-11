@@ -49,11 +49,8 @@ function [f,bic] = fit_br_bic(idx)
 		if ~isempty(initial_params_override)
 			initial_params(isfinite(initial_params_override)) = initial_params_override(isfinite(initial_params_override));
 		end
-		try
+
 		[~,~,f(j)] = mcmc.fit(m,d.f(:),d.P(:),initial_pp,initial_params,npts_per_fit,[],skip_fit,debugmode);
-		catch
-			error(sprintf('Failed for spectrum %d\n',j));
-		end
 
 		f(j).compress();
 		bic(j) = f(j).fit_data.bic;

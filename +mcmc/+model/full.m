@@ -122,7 +122,7 @@ classdef full < mcmc.model.template
 			a =  db_data.gab(idx,:);
 			p = model.params(db_data.iswake(idx));
 
-			initial_values =  [a(1) a(2) a(3)*a(4) a(3)*a(5)*a(7) a(5)*a(8) p.alpha(1) p.beta(1) p.t0 0];
+			initial_values =  [a(1) a(2) a(3)*a(4) a(3)*a(5)*a(7) a(5)*a(8) p.alpha(1) p.beta(1) p.t0 eps];
 
 			prior_pp = self.uniform_priors();
 		end
