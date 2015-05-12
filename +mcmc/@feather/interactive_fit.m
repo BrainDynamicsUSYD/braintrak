@@ -1,4 +1,13 @@
-function interactive_fit(fit)
+function interactive_fit(self)
+	if self.latest == 0
+		return
+	elseif self.latest > 1
+		fit = self.subrange(self.latest);
+		fprintf(2,'Multiple fits provided - displaying the last one\n')
+	else
+		fit = self;
+	end
+
 	h.m = fit.model;
 	h.pars_orig = fit.fitted_params;
 	h.f = fit.fit_data.target_f;
@@ -16,14 +25,14 @@ function interactive_fit(fit)
 	set(h.ax,'XLim',[1 45]);
 	loglog(fit.fit_data.target_f,fit.fit_data.target_P,'b--')
 
-	h.t0_marker(1) = plot([NaN NaN],[NaN NaN],'g--')
-	h.t0_marker(2) = plot([NaN NaN],[NaN NaN],'g--')
-	h.t0_marker(3) = plot([NaN NaN],[NaN NaN],'g--')
-	h.spindle_marker = plot([NaN NaN],[NaN NaN],'m--')
-	h.spindle_text = text(NaN,NaN,'\sigma','VerticalAlignment','bottom')
-	h.t0_text(1) = text(NaN,NaN,'f_\alpha','VerticalAlignment','bottom')
-	h.t0_text(2) = text(NaN,NaN,'2f_\alpha','VerticalAlignment','bottom')
-	h.t0_text(3) = text(NaN,NaN,'3f_\alpha','VerticalAlignment','bottom')
+	h.t0_marker(1) = plot([NaN NaN],[NaN NaN],'g--');
+	h.t0_marker(2) = plot([NaN NaN],[NaN NaN],'g--');
+	h.t0_marker(3) = plot([NaN NaN],[NaN NaN],'g--');
+	h.spindle_marker = plot([NaN NaN],[NaN NaN],'m--');
+	h.spindle_text = text(NaN,NaN,'\sigma','VerticalAlignment','bottom');
+	h.t0_text(1) = text(NaN,NaN,'f_\alpha','VerticalAlignment','bottom');
+	h.t0_text(2) = text(NaN,NaN,'2f_\alpha','VerticalAlignment','bottom');
+	h.t0_text(3) = text(NaN,NaN,'3f_\alpha','VerticalAlignment','bottom');
 	hold off
 
 	h.tent_ax = axes('Parent',h.fig,'Position',[0.6 0.35 0.35 0.6]);
@@ -81,7 +90,7 @@ function draw(m,pars,h)
 	a=model.get_pkf(f,P);
 	%pks = [a.alpha_maxf,a.sigma_maxf,a.beta_maxf,a.gamma_maxf]
 
-	beta_f = a.beta_maxf/a.alpha_maxf
+	%beta_f = a.beta_maxf/a.alpha_maxf
 
 	p = m.p_from_params(pars);
 	alpha = p.alpha(1);
