@@ -16,7 +16,6 @@ classdef full < mcmc.model.template
 		spec_w
 		
 		p
-		weights
 		emg
 		normalization_target
 		stab_Mtot

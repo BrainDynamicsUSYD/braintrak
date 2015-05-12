@@ -1,7 +1,6 @@
 classdef dummy < mcmc.model.template
 
 	properties
-		weights
 		means 
 		std 
 	end

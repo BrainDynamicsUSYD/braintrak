@@ -24,7 +24,6 @@ classdef spatial_t0_2d < mcmc.model.template
 		p
 		stab_gamma_prefactor
 		spec_gamma_prefactor
-		weights
 		k2_volconduct
 		emg
 		normalization_target

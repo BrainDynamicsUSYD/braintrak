@@ -16,7 +16,6 @@ classdef reduced_l < mcmc.model.template
 		p
 		stab_gamma_prefactor
 		spec_gamma_prefactor
-		weights
 		emg
 		normalization_target
 		stab_Mtot

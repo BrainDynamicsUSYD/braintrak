@@ -17,6 +17,7 @@ classdef (Abstract) template < matlab.mixin.Copyable
 	
 		target_f % Frequencies present in the data 
 		target_P % Experimental power spectrum
+		weights
 		prior_pp % Shape of the prior distribution (a struct array, one for each parameter)
 		prior_size = 50; % Number of points in the prior
 	end
