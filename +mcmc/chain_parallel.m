@@ -45,12 +45,6 @@ function [out,chisq_out,accept_ratio] = chain_parallel(model,initial_values,npoi
 		[out1{j},chisq_out1{j},accept(j)] = mcmc.chain(model,initial_values,worker_n,false,timelimit,n_burnin);
 	end
 
-	if debugmode
-		for j = 1:4
-			mcmc.chain_diagnostics(model,out1{j},chisq_out1{j},1,true);
-		end
-	end
-
 	% And assemble
 	out = [];
 	chisq_out = [];
@@ -60,3 +54,11 @@ function [out,chisq_out,accept_ratio] = chain_parallel(model,initial_values,npoi
 	end
 	accept_ratio = mean(accept);
 
+
+	if debugmode
+		for j = 1:4
+			mcmc.chain_diagnostics(model,out1{j},chisq_out1{j},1,true);
+		end
+		fprintf(2,'Displaying final chain - note that parallel mode does not show burn-in')
+		mcmc.chain_diagnostics(model,out,chisq_out,1,false);
+	end

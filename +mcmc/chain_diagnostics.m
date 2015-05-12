@@ -1,4 +1,8 @@
 function chain_diagnostics(model,out,posterior_out,j_burnin,automode)
+	% Display diagnostics for the chain (trace plot and posteriors)
+	% posterior_out is the probability (from model.probability) 
+	% j_burnin controls how much is displayed in red/in first segment
+	% automode=false will pause with a keyboard prompt
 	if nargin < 5 || isempty(automode)
 		automode = false;
 	end
