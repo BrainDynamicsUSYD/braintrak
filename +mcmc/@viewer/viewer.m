@@ -185,7 +185,7 @@ classdef viewer < handle
 				set(self.spec_ax(j),'XScale','log','YScale','log')
 				hold(self.spec_ax(j),'on');
 				box(self.spec_ax(j),'on');
-				set(self.spec_ax(j),'XLim',[0.25 45]);
+				set(self.spec_ax(j),'XLim',[1 45]);
 				%set(self.spec_ax(j),'YLim',[3e-4 1]);
 				xtf = [1:2:10 15 20 30 45];
 				set(self.spec_ax(j),'XTick',xtf);
