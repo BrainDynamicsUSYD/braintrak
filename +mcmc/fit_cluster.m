@@ -76,6 +76,8 @@ function fdata = fit_cluster(model,dataset,subject_idx,npts_per_fit,suffix)
 
 		if ~mod(j,3) % Save backup after every 30s chunk
 			fprintf('Saving backup: Just fitted t=%ds\n',t_increment(j))
+			backup_name = sprintf('%s/cached_output.mat',output_dir);
+			system(sprintf('cp %s %s',backup_name,strrep(backup_name,'cached_output','cached_output_backup')));
 			ts1 = toc;
 			f.compress();
 			save(sprintf('%s/cached_output',output_dir),'f','j','fit_data','plot_data','t_increment');
