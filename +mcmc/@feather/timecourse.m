@@ -27,7 +27,11 @@ function plot_timecourse(f,nocolor,smoothed)
 		for j = 1:size(yv,2)
 			yv(:,j) = smooth(yv(:,j),60);
 		end
-		yv = [yv,f.model.get_xyz(yv)];
+		xyz = xyz(:,xyz_req);
+		for j = 1:size(xyz,2)
+			xyz(:,j) = smooth(xyz(:,j),60);
+		end
+		yv = [yv, xyz];
 	else
 		yv = f.fitted_params;
 		yv = [yv, xyz(:,xyz_req)];
