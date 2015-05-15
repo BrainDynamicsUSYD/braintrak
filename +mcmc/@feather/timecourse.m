@@ -1,4 +1,8 @@
-function plot_timecourse(f,nocolor)
+function plot_timecourse(f,nocolor,smoothed)
+	if nargin < 3 || isempty(smoothed)
+		smoothed = false;
+	end
+
 	if nargin < 2 || isempty(nocolor)
 		nocolor = false;
 	end
@@ -18,8 +22,17 @@ function plot_timecourse(f,nocolor)
 	xyz_units = {'','',''};
 	xyz = f.xyz;
 	
-	yv = f.fitted_params;
-	yv = [yv, xyz(:,xyz_req)];
+	if smoothed
+		yv = f.fitted_params;
+		for j = 1:size(yv,2)
+			yv(:,j) = smooth(yv(:,j),60);
+		end
+		yv = [yv,f.model.get_xyz(yv)];
+	else
+		yv = f.fitted_params;
+		yv = [yv, xyz(:,xyz_req)];
+	end
+
 	param_names = [param_names,xyz_names(xyz_req)];
 	param_symbols = [m.param_symbols,xyz_symbols(xyz_req)];
 	param_units = [m.param_units,xyz_units(xyz_req)];
