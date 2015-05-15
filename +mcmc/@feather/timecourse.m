@@ -45,7 +45,7 @@ function plot_timecourse(f,nocolor)
 			f.plot_statecolored(xv/3600,yv(:,j));
 		end
 
-		xlabel('Time (hours)')
+		xlabel('Time (h)')
 		if isempty(param_units{j})
 			ylabel(ax(j),param_symbols{j})
 		else

@@ -8,7 +8,7 @@ function fdata = fit_several(model,dataset,subject_idx,t_increment,npts_per_fit,
 		use_prior = true;
 	end
 
-	debugmode = false;
+	debugmode = true;
 
 	if isa(model,'mcmc.model.spatial_t0_2d') || isa(model,'mcmc.model.template_spatial')
 		d = mcmc.load_subject_data(dataset,subject_idx,{'all'});
