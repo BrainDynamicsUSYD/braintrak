@@ -9,14 +9,7 @@ function h_out = plot_track(self,idx,smoothed)
 		f = self.subrange(idx);
 	end
 
-	smoothed = true;
 	if smoothed
-		% pars = f.fitted_params;
-		% for j = 1:size(pars,2)
-		% 	pars(:,j) = smooth(pars(:,j),60);
-		% end
-		% xyz = f.model.get_xyz(pars);
-
 		xyz = f.xyz;
 		for j = 1:size(xyz,2)
 			xyz(:,j) = smooth(xyz(:,j),60);
