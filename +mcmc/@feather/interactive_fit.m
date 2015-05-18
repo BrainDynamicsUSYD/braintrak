@@ -10,13 +10,15 @@ function interactive_fit(self)
 
 	h.m = fit.model;
 	h.pars_orig = fit.fitted_params;
-	h.f = fit.fit_data.target_f;
 	h.f = linspace(1,45,1000);
 	h.fig = figure;
-
+	
+	exp_weights = h.m.get_weights(fit.fit_data.target_f);
+	h.normalization_target = trapz(fit.fit_data.target_f(exp_weights>0),fit.fit_data.target_P(exp_weights>0));
 
 	h.ax = axes('Parent',h.fig,'Position',[0.07 0.45 0.45 0.5]);
 	[f,P] = h.m.spectrum(h.pars_orig,h.f);
+	P = P./trapz(f(h.m.weights>0),P(h.m.weights>0))*h.normalization_target;
 	s1 = loglog(f,P);
 	xlabel('Frequency (Hz)');
 	ylabel('Power (normalized)')
@@ -82,6 +84,7 @@ function draw(m,pars,h)
 
 	try
 		[f,P,stab] = m.spectrum(pars,m.target_f);
+		P = P./trapz(f(h.m.weights>0),P(h.m.weights>0))*h.normalization_target;
 	catch
 		f = NaN;
 		P = NaN;
