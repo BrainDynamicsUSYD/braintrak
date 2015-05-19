@@ -2,14 +2,12 @@ function blobs(f)
 	figure
 	
 	xyz = f.xyz;
-	chisq = f.chisq;
 	state_color = f.state_colors;
 	cdata = braintrack_utils.state_cdata;
-	contaminated = braintrack_utils.chisq_outliers(chisq);
 
 
 	for j = 1:size(cdata,1)
-		pts = state_color == j & ~contaminated(:);
+		pts = state_color == j;
 		if any(pts)
 			h = utils.alphavol_wrapper(xyz(pts,:),Inf);
 

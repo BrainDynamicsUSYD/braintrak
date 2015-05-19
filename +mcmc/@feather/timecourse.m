@@ -48,8 +48,6 @@ function plot_timecourse(f,nocolor,smoothed)
 
 	xv = 1:f.latest;
 	
-	contaminated = braintrack_utils.chisq_outliers(f.chisq);
-	yv(contaminated,:) = NaN;
 	
 	for j = 1:length(param_names)
 		ax(end+1) = subplot(n_rows,n_cols,1+a_idx(ceil(j/2),mod(j-1,2)));
