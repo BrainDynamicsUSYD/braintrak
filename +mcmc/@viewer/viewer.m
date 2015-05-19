@@ -364,8 +364,6 @@ classdef viewer < handle
 
 		function prep_animation(self)
 			chisq = self.feather.chisq;
-			contaminated = braintrack_utils.chisq_outliers(chisq);
-			chisq(contaminated) = NaN;
 			
 			fixed_idx = arrayfun(@(x) x.skip_fit(1),self.feather.fit_data) == 3;
 			time_idx = self.feather.time;
