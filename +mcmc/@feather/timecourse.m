@@ -1,4 +1,8 @@
-function plot_timecourse(f,nocolor)
+function plot_timecourse(f,nocolor,smoothed)
+	if nargin < 3 || isempty(smoothed)
+		smoothed = false;
+	end
+
 	if nargin < 2 || isempty(nocolor)
 		nocolor = false;
 	end
@@ -18,8 +22,21 @@ function plot_timecourse(f,nocolor)
 	xyz_units = {'','',''};
 	xyz = f.xyz;
 	
-	yv = f.fitted_params;
-	yv = [yv, xyz(:,xyz_req)];
+	if smoothed
+		yv = f.fitted_params;
+		for j = 1:size(yv,2)
+			yv(:,j) = smooth(yv(:,j),60);
+		end
+		xyz = xyz(:,xyz_req);
+		for j = 1:size(xyz,2)
+			xyz(:,j) = smooth(xyz(:,j),60);
+		end
+		yv = [yv, xyz];
+	else
+		yv = f.fitted_params;
+		yv = [yv, xyz(:,xyz_req)];
+	end
+
 	param_names = [param_names,xyz_names(xyz_req)];
 	param_symbols = [m.param_symbols,xyz_symbols(xyz_req)];
 	param_units = [m.param_units,xyz_units(xyz_req)];
@@ -31,8 +48,6 @@ function plot_timecourse(f,nocolor)
 
 	xv = 1:f.latest;
 	
-	contaminated = braintrack_utils.chisq_outliers(f.chisq);
-	yv(contaminated,:) = NaN;
 	
 	for j = 1:length(param_names)
 		ax(end+1) = subplot(n_rows,n_cols,1+a_idx(ceil(j/2),mod(j-1,2)));
@@ -45,7 +60,7 @@ function plot_timecourse(f,nocolor)
 			f.plot_statecolored(xv/3600,yv(:,j));
 		end
 
-		xlabel('Time (hours)')
+		xlabel('Time (h)')
 		if isempty(param_units{j})
 			ylabel(ax(j),param_symbols{j})
 		else

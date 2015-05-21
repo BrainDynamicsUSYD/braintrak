@@ -2,9 +2,7 @@ function cones(f)
 	    %if ~isnumeric(varargin{1})
 	    	%f = varargin{1};
     	xyz = f.xyz;
-    	chisq = f.chisq;
-    	contaminated = braintrack_utils.chisq_outliers(chisq);
-    	fitted = isfinite(chisq) & ~contaminated;
+    	fitted = isfinite(chisq);
     	valid = [fitted(2:end)==1 & fitted(1:end-1)==1]; % This says 
 	    % else
 	    %     xyz = varargin{1};
@@ -97,9 +95,7 @@ function [xyz_out,xyzdiff] = load_all
         f = mcmc.feather.import(sprintf('postmaster/control_apnea_art_%d_postmaster',j));
 
         xyz = f.xyz;
-        chisq = f.chisq;
-        contaminated = braintrack_utils.chisq_outliers(chisq);
-        fitted = isfinite(chisq) & ~contaminated;
+        fitted = isfinite(chisq);
         valid = [fitted(2:end)==1 & fitted(1:end-1)==1]; % This says 
 
         xyzdiff = [xyzdiff; diff(xyz)]; 
