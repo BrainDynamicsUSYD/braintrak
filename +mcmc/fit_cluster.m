@@ -37,7 +37,11 @@ function fdata = fit_cluster(model,dataset,subject_idx,npts_per_fit,suffix)
 	if exist(sprintf('%s/cached_output.mat',output_dir)) % Resume an interrupted run
 		% All of the arguments will be overwritten by this step, as they should be
 		j = 0; % Pre-initialize
- 		load(sprintf('%s/cached_output.mat',output_dir))
+ 		try
+			load(sprintf('%s/cached_output.mat',output_dir));
+		catch
+			load(sprintf('%s/cached_output_backup.mat',output_dir));
+		end
 		j_start = j+1;
 	else % Initialize variables
 		mkdir(output_dir);
