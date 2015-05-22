@@ -11,6 +11,9 @@ classdef spatial_express_xyz_all < mcmc.model.template_spatial
 		function self = spatial_express_xyz_all(n_modes) % Constructor
 			self.name = 'spatial_express_xyz_all';
 			self.param_names = {'X','Y','Z','Alpha','Beta','t0','X_amp','Y_amp','Z_amp','alpha_amp','beta_amp','t0_amp'};
+			self.param_symbols = {'X','Y','Z','\alpha','\beta','t_0','Xa','Ya','Za','A_\alpha','A_\beta','t_{0amp}'};
+			self.param_units = {'','','','s^{-1}','s^{-1}','ms','','','','s^{-1}','s^{-1}','ms'};
+
 			self.n_params = length(self.param_names);
 			self.n_fitted = self.n_params;
 			self.skip_fit = zeros(1,self.n_fitted);

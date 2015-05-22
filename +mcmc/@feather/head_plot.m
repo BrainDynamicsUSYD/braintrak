@@ -4,8 +4,8 @@ function head_plot(self,fitted_spatial)
 	end
 
 	if fitted_spatial
-		analysis.head_imager(self.model.output_x,self.model.output_y,self.fit_data.target_f,self.fit_data.fitted_P,self.model.electrodes,self.fit_data.target_f,self.fit_data.target_P);
+		multielectrode.head_imager(self.model.output_x,self.model.output_y,self.fit_data.target_f,self.fit_data.fitted_P,self.model.electrodes,self.fit_data.target_f,self.fit_data.target_P);
 	else
-		analysis.head_imager(self.model.output_x,self.model.output_y,self.fit_data.target_f,self.fit_data.target_P,self.model.electrodes,self.fit_data.target_f,self.fit_data.fitted_P);
+		multielectrode.head_imager(self.model.output_x,self.model.output_y,self.fit_data.target_f,self.fit_data.target_P,self.model.electrodes,self.fit_data.target_f,self.fit_data.fitted_P);
 	end
 

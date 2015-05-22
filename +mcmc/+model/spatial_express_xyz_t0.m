@@ -12,6 +12,9 @@ classdef spatial_express_xyz_t0 < mcmc.model.template_spatial
 			self.name = 'spatial_express_xyz_t0';
 			self.n_params = 8;
 			self.param_names = {'X','Y','Z','Alpha','Beta','t0','EMGa','t0_{amp}'};
+			self.param_symbols = {'X','Y','Z','\alpha','\beta','t_0','A_{EMG}','t_{0amp}'};
+			self.param_units = {'','','','s^{-1}','s^{-1}','ms','','ms'};
+
 			self.n_fitted = self.n_params;
 			self.skip_fit = zeros(1,self.n_fitted);
 			self.initial_step_size = 0.05.*[0.2 0.2 0.2 5 10 0.02 0.05 0.02];

@@ -12,6 +12,9 @@ classdef spatial_express_t0_phased < mcmc.model.template_spatial
 			self.name = 'spatial_express_t0_phased';
 			self.n_params = 11;
 			self.param_names = {'Gee','Gei','Gese','Gesre','Gsrs','Alpha','Beta','t0','EMGa','t0_amp','t0_phase'};
+			self.param_symbols = {'G_{ee}','G_{ei}','G_{ese}','G_{esre}','G_{srs}','\alpha','\beta','t_0','A_{EMG}','t_{0amp}','t_{0\phi}'};
+			self.param_units = {'','','','','','s^{-1}','s^{-1}','ms','','ms','m'};
+
 			self.n_fitted = self.n_params;
 			self.skip_fit = zeros(1,self.n_fitted);
 			self.initial_step_size = 0.05.*[2 2 2 2 2 5 10 0.02 0.01 0.05 0.2];

@@ -11,7 +11,6 @@ classdef template_spatial < mcmc.model.template
 		
 		output_x
 		output_y
-		weights
 		emg % This is the actual EMG component as a function of frequency
 		emg_scaling
 	end
@@ -66,7 +65,7 @@ classdef template_spatial < mcmc.model.template
 
 			P = shiftdim(P,2);
 			P = bsxfun(@plus,P,1e-9*self.p.emg_a*self.emg*2*pi); % Add the EMG component
-			P = bsxfun(@rdivide,P,mex_trapz(self.target_f(self.weights>0),P(self.weights>0,:)));
+			P = bsxfun(@rdivide,P,utils.mex_trapz(self.target_f(self.weights>0),P(self.weights>0,:)));
 			P = bsxfun(@times,self.normalization_target,P);
 			
 			sqdiff = (abs(P-self.target_P)./self.target_P).^2; % This is the squared fractional difference
@@ -85,7 +84,7 @@ classdef template_spatial < mcmc.model.template
 			if ~isempty(self.target_P)
 				% If this cache file is being generated for a specific fit instance
 				for j = 1:size(self.target_P,2) % For each electrode
-					self.normalization_target(j) = mex_trapz(self.target_f(self.weights>0),squeeze(self.target_P(self.weights>0,j)));
+					self.normalization_target(j) = utils.mex_trapz(self.target_f(self.weights>0),squeeze(self.target_P(self.weights>0,j)));
 				end
 			else
 				self.normalization_target = 1;
