@@ -64,7 +64,9 @@ function fdata = fit_cluster(model,dataset,subject_idx,npts_per_fit,suffix)
 		didx = initial_idx+(t_increment(j)-1); % Current index of d
 		target_P = squeeze(d.s(:,didx,:));
 
-		if d.nspec(didx) < 20 % If there were more than 10s marked bad in the data
+		if d.nspec(didx) < 20 || any(~isfinite(target_P(:))) % If there were more than 10s marked bad in the data
+			% Or if there are NaNs in the spectrum due to say, a electrode with no oscillations that
+			% *that has not already been marked as bad due to nspec*
 			fit_data.skip_fit(1:end) = 3;
 			fit_data.target_f = d.f(:);
 			fit_data.target_P = target_P;
