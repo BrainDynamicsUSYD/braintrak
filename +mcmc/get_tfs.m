@@ -94,12 +94,9 @@ function [tv,fv,spectra,nspec,nreject] = get_tfs(t,V,window_length,fft_length,re
 					clean_runs(j) = false;
 				end
 			end
-			%keyboard
-			%clean = clean_clipping & clean_range;
+			
 			clean = clean_clipping & clean_range & clean_runs;
-			%x = load('psg_data/sleep_tfs/control_apnea_8_hf_tfs.mat')
-			%all(clean == clean2)
-			%find(clean & ~clean2)
+			
 		else
 			clean = true(size(delta_pow));
 		end
