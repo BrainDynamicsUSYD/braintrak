@@ -6,8 +6,8 @@ function import_raw_eeg
 
 	os_prefix = './psg_data/';
 
-	data_set = 'control_apnea';
-	idx = 1:9;
+	data_set = 'control_opioid';
+	idx = 1:19;
 
 	parfor j = idx
 		import(os_prefix,data_set,j);
