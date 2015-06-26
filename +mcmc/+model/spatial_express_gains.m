@@ -38,14 +38,6 @@ classdef spatial_express_gains < mcmc.model.template_spatial
 			self.p.disable_set = true;
 		end
 
-		function w = get_weights(self,target_f) % Default weighting function
-			w = get_weights@mcmc.model.template(self,target_f);
-			w(target_f > 25) = 0;
-			w(target_f > 8 & target_f < 12) = 100*w(target_f > 8 & target_f < 12);
-			w(target_f < 8.5 | target_f > 11) = 0;
-			w(target_f > 8.5 & target_f < 11) = 1;
-		end
-
 		function set_params(self,pars)
 			% This function is what decides what the spatial variations are actually going to be
 			%e.g. p.apply_variation('cosine','t0',pars(10));
@@ -60,7 +52,6 @@ classdef spatial_express_gains < mcmc.model.template_spatial
 			self.p.apply_variation('g5_ee','cosine_phased',pars(12),pars(13))
 
 		end
-
 		
 		function [initial_values,prior_pp] = initialize_fit(self,target_f,target_P) % Return the first posterior/prior and initial values
 			[f1,P1,idx,db_data,min_chisq] = db_fit.quick_fit(self,target_f,mean(target_P,2)); % Fit the first (or only) spectrum given
@@ -70,7 +61,6 @@ classdef spatial_express_gains < mcmc.model.template_spatial
 			prior_pp = self.uniform_priors();
 		end
 		
-
 		function xyz = get_xyz(self,params) % Turn whatever model parameters are specified into XYZ - params is a matrix
 			xyz(:,1) = params(:,1)./(1-params(:,2));
 			xyz(:,2) = (params(:,3)+params(:,4))./(1-params(:,5))./(1-params(:,2));
