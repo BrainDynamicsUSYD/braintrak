@@ -65,7 +65,7 @@ function [fit_data,plot_data,f_out] = fit(model,target_f,target_P,prior_pp,initi
 	[fit_data.fitted_chisq,~,likelihood,fit_data.fitted_P] = model.probability(fit_data.fitted_params);
 	
 	fit_data.bic = -2*log(likelihood)+model.n_fitted*log(sum(model.weights>0));
-	fit_data.aic = 2*model.n_fitted - 2*log(fit_data.fitted_posterior);
+	fit_data.aic = 2*model.n_fitted - 2*log(likelihood);
 	fit_data.aicc = fit_data.aic + (2*model.n_fitted*(model.n_fitted+1))/(sum(model.weights>0) - model.n_fitted - 1);
 
 	fit_data.xyz = model.get_xyz(fit_data.fitted_params);
