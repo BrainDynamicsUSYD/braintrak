@@ -10,7 +10,7 @@ function fdata = load_br_data(subject_id,electrode)
 	end
 
 	if ispc
-			fdata = load(sprintf('C:/Users/romesh/Desktop/psg_data/br_ec_multielectrode/%s.mat',subject_id));
+			fdata = load(sprintf('./psg_data/br_ec_multielectrode/%s.mat',subject_id));
 	else
 		switch romesh_utils.hostname()
 			case {'cathcart','korn','daneeka'}
