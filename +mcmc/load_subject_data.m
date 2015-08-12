@@ -1,6 +1,6 @@
 function fdata = load_subject_data(dataset,subject_idx,electrode)
 	if nargin < 3 || isempty(electrode)
-		if strcmp(dataset,'control_apnea')
+		if any(strcmp({'control_apnea','olivia'},dataset))
 			electrode = {'Cz'};
 		else
 			electrode = {'C4-A1'};
