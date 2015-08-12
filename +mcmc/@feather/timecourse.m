@@ -1,4 +1,4 @@
-function plot_timecourse(f,nocolor,smoothed)
+function timecourse(f,nocolor,smoothed)
 	if nargin < 3 || isempty(smoothed)
 		smoothed = false;
 	end
@@ -60,11 +60,11 @@ function plot_timecourse(f,nocolor,smoothed)
 			f.plot_statecolored(xv/3600,yv(:,j));
 		end
 
-		xlabel('Time (h)')
+		xlabel('Time (h)','FontSize',10)
 		if isempty(param_units{j})
 			ylabel(ax(j),param_symbols{j})
 		else
-			ylabel(ax(j),sprintf('%s (%s)',param_symbols{j},param_units{j}))
+			ylabel(ax(j),sprintf('%s (%s)',param_symbols{j},param_units{j}),'FontSize',10)
 		end
 
 		%ylabel(ax(j),m.param_names{j})

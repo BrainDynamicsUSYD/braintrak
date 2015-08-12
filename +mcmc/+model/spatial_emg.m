@@ -11,6 +11,9 @@ classdef spatial_emg < mcmc.model.template_spatial
 		function self = spatial_emg(n_modes) % Constructor
 			self.name = 'spatial_emg';
 			self.param_names = {'G_{ee}','G_{ei}','G_{ese}','G_{esre}','G_{srs}','Alpha','Beta','t_0 ','t_0 amp','t_0 phase','EMG_a','EMG_x amp','EMG_x phase','EMG_y amp','EMG_y phase'};
+			self.param_symbols = {'G_{ee}','G_{ei}','G_{ese}','G_{esre}','G_{srs}','\alpha','\beta','t_0','t_0_amp','t_0 phase','EMG_a','EMG_x amp','EMG_x phase','EMG_y amp','EMG_y phase'};
+			self.param_units = {'','','','','','s^{-1}','s^{-1}','ms','ms','m','','','','',''};
+
 			self.n_params = length(self.param_names);
 			self.n_fitted = self.n_params;
 			self.skip_fit = zeros(1,self.n_fitted);
