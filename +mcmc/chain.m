@@ -129,8 +129,8 @@ function [out,final_posterior,accept_ratio] = chain(model,initial_values,n_point
 		else
 			j = accept + 1; % Set j to be the next point - the greedy burnin is mentioned in Haario 2001
 			burnin_counter = burnin_counter + 1;
-			if burnin_counter == 2e5
-				error('Initial burnin failed after 200000 steps - initial step size must be incorrect')
+			if burnin_counter == 1e8
+				error('Initial burnin failed after 1000000 steps - initial step size must be incorrect')
 			end
 		end
 
