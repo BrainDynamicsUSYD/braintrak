@@ -71,7 +71,7 @@ function chisq_out = chisq_analysis(f,tp,fp,skip_fit)
 
 	end
 
-	chisq_out(skip_fit(:,1)==3) = NaN; % Remove chisq when bad data was present
+	chisq_out(skip_fit(:,1)>=3) = NaN; % Remove chisq when bad data was present
 
 
 

@@ -365,7 +365,7 @@ classdef viewer < handle
 		function prep_animation(self)
 			chisq = self.feather.chisq;
 			
-			fixed_idx = arrayfun(@(x) x.skip_fit(1),self.feather.fit_data) == 3;
+			fixed_idx = arrayfun(@(x) x.skip_fit(1),self.feather.fit_data) >= 3;
 			time_idx = self.feather.time;
 
 			axes(self.chisq_ax);
