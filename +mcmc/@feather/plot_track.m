@@ -1,5 +1,5 @@
 function h_out = plot_track(self,idx,smoothed)
-	if nargin < 3 || isempty(idx)
+	if nargin < 3 || isempty(smoothed)
 		smoothed = 1; % With a moving average of 1, smoothing does nothing
 	end
 
@@ -13,7 +13,7 @@ function h_out = plot_track(self,idx,smoothed)
 	for j = 1:size(xyz,2)
 		xyz(:,j) = smooth(xyz(:,j),smoothed);
 	end
-
+	
 	% Now skip the affected parts
 	output_indexes = idx(ceil(smoothed/2):(end-(ceil(smoothed/2)-1)));
 	fprintf('Skipping %d samples - total length = %d samples',length(idx)-length(output_indexes),length(output_indexes))
