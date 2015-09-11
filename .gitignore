@@ -1,0 +1,14 @@
+#*.mat
+
+# Ignore MEX files
+*.mexa64
+*.mexmaci64
+*.mexw64
+
+# Ignore LaTeX files
+*.aux
+*.fdb_latexmk
+*.log
+*.out
+*.synctex.gz
+*.toc
