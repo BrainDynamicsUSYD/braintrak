@@ -287,7 +287,7 @@ classdef viewer < handle
 				set(self.red_trail,'XData',xyz(:,1),'YData',xyz(:,2),'ZData',xyz(:,3));
 			end
 
-			[x,y,z,u] = tent.compute(p.alpha(1),p.beta(1),p.t0,p.gammae);
+			[x,y,z,u] = tent.compute_mex(p.alpha(1),p.beta(1),p.t0,p.gammae);
 			edge_alphadata = x+y<0.90 & x > 0 & x < 1;
 			set(self.tent_mesh,'XData',x,'YData',y,'ZData',z,'CData',u,'AlphaData',+edge_alphadata,'Visible','on');
 			self.vol3d_data = self.vol3d_alpha_fast(self.tent_ax,plot_data.xyzlim,+(plot_data.Vcount>0),plot_data.Vcount,self.vol3d_data);
