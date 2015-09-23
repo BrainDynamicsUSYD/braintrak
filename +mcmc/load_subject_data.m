@@ -16,6 +16,8 @@ function fdata = load_subject_data(dataset,subject_idx,electrode)
 		start_idx = max(1,find(fdata.state_score>2,1,'first')-padding_minutes*60);
 	elseif any(strcmp({'olivia'},dataset))
 		fdata = load(sprintf('./psg_data/olivia/%s_%d',dataset,subject_idx));
+	elseif any(strcmp({'demo'},dataset))
+		fdata = load(sprintf('./braintrak/%s',dataset)); % Load the demo file
 	else
 		error('Data set unknown');
 	end
