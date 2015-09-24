@@ -18,7 +18,7 @@ function h_out = scatter_statecolored(varargin)
 		error('Size mismatch. XYZ data must have same size as the data container')
 	end
 
-	cdata = braintrak_utils.state_cdata;
+	cdata = bt_utils.state_cdata;
 	cdata = cdata(f.state_colors,:);
 
 	if length(varargin) == 3

@@ -1,6 +1,6 @@
-function f_out = fit_spectrum(model,target_f,target_P,prior_pp,initial_values,npoints,target_state,skip_fit,debugmode)
+function [f_out,fit_data,plot_data] = fit_spectrum(model,target_f,target_P,prior_pp,initial_values,npoints,target_state,skip_fit,debugmode)
 	% Take in a model, spectrum, prior distribution, initial values, and chain length
-	% Return the fitted parameters and posterior distribution
+	% Return a feather object
 	% The posterior distribution correctly reflects the skip_fit state of the model
 	% This function is intended to be called via a wrapper like fit_single
 		
@@ -93,7 +93,5 @@ function f_out = fit_spectrum(model,target_f,target_P,prior_pp,initial_values,np
 	[plot_data.tent_x,plot_data.tent_y,plot_data.tent_z,plot_data.tent_u] = tent.compute(p.alpha(1),p.beta(1),p.t0,p.gammae);
 	plot_data.tent_alpha = +(plot_data.tent_x+plot_data.tent_y<0.90 & plot_data.tent_x > 0 & plot_data.tent_x < 1);
 	
-	if nargout >= 3
-		f_out = bt.feather(model,fit_data,plot_data);
-	end
+	f_out = bt.feather(model,fit_data,plot_data);
 
