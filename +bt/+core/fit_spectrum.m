@@ -45,10 +45,10 @@ function [f_out,fit_data,plot_data] = fit_spectrum(model,target_f,target_P,prior
 
 	if isempty(pool)
 		fprintf('Single CPU mode\n');
-		[out,posterior_out,accept_ratio] = bt.chain(model,initial_values,npoints,debugmode,timelimit);
+		[out,posterior_out,accept_ratio] = bt.core.chain(model,initial_values,npoints,debugmode,timelimit);
 	else
 		fprintf('Parallel mode with %d workers\n',pool.NumWorkers);
-		[out,posterior_out,accept_ratio] = bt.chain_parallel(model,initial_values,npoints,debugmode,timelimit);
+		[out,posterior_out,accept_ratio] = bt.core.chain_parallel(model,initial_values,npoints,debugmode,timelimit);
 	end
 
 	% Pick and evaluate the fitted parameters

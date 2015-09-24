@@ -144,7 +144,7 @@ function [out,final_posterior,accept_ratio] = chain(model,initial_values,n_point
 	accept_ratio = accept/n_points;
 
 	if debugmode
-		bt.chain_diagnostics(model,out(1:(j-1),:),final_posterior(1:(j-1)),n_burnin);
+		bt.core.chain_diagnostics(model,out(1:(j-1),:),final_posterior(1:(j-1)),n_burnin);
 	end
 	
 	out = out(n_burnin+1:(j-1),:);
