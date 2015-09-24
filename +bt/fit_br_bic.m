@@ -50,7 +50,7 @@ function [f,bic] = fit_br_bic(idx)
 			initial_params(isfinite(initial_params_override)) = initial_params_override(isfinite(initial_params_override));
 		end
 
-		f(j) = bt.fit_spectrum(m,d.f(:),d.P(:),initial_pp,initial_params,npts_per_fit,[],skip_fit,debugmode);
+		f(j) = bt.core.fit_spectrum(m,d.f(:),d.P(:),initial_pp,initial_params,npts_per_fit,[],skip_fit,debugmode);
 
 		f(j).compress();
 		bic(j) = f(j).fit_data.bic;
