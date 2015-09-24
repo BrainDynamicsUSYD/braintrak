@@ -68,7 +68,7 @@ classdef feather < handle
 			% Concatenate by adding another feather instance to the end
 			assert(self.model == f2.model);
 			for j = 1:f2.latest
-				self.insert(f2.fit_data(j),f2.plot_data{j});
+				self.insert(f2.fit_data(j),f2.plot_data{j},t_increment(j));
 			end
 		end
 
