@@ -23,7 +23,7 @@ function f = fit_single(model,f,P,npts,prior_pp,initial_values,skip_fit)
 	tic;
 
 	model.set_electrodes('Cz');
-	[~,~,f] =  bt.fit(model,f,P,prior_pp,initial_values,npts,[],skip_fit);
+	[~,~,f] =  bt.fit_spectrum(model,f,P,prior_pp,initial_values,npts,[],skip_fit);
 
 	fprintf('Fit took %.2f seconds\n',toc);
 

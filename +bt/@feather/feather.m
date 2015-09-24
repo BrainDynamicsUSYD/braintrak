@@ -1,7 +1,7 @@
 classdef feather < handle
 	% A feather is a container for a sequence of fit data
 	% It contains an array of fit data and an array of plot data
-	% corresponding to the outputs of bt.fit()
+	% corresponding to the outputs of bt.fit_spectrum()
 	% It also contains a copy of the model used for the fit
 	
 	properties

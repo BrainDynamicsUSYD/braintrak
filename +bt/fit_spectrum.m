@@ -1,4 +1,4 @@
-function [fit_data,plot_data,f_out] = fit(model,target_f,target_P,prior_pp,initial_values,npoints,target_state,skip_fit,debugmode)
+function f_out = fit_spectrum(model,target_f,target_P,prior_pp,initial_values,npoints,target_state,skip_fit,debugmode)
 	% Take in a model, spectrum, prior distribution, initial values, and chain length
 	% Return the fitted parameters and posterior distribution
 	% The posterior distribution correctly reflects the skip_fit state of the model
