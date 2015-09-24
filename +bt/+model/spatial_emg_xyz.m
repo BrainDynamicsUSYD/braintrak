@@ -1,4 +1,4 @@
-classdef spatial_emg_xyz < mcmc.model.template_spatial
+classdef spatial_emg_xyz < bt.model.template_spatial
 	% This is a template function that allows rapid prototyping of new spatial
 	% fitting by leveraging model.params.spatial_spectrum with absolutely
 	% no regard for performance
@@ -31,7 +31,7 @@ classdef spatial_emg_xyz < mcmc.model.template_spatial
 			].';
 			
 			Lx = 0.5;
-			head_d = mcmc.electrode_positions;
+			head_d = bt.electrode_positions;
 			offset = (Lx-head_d)/2;
 
 			self.limits = [

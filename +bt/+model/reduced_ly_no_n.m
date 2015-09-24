@@ -1,4 +1,4 @@
-classdef reduced_ly_no_n < mcmc.model.reduced_ly
+classdef reduced_ly_no_n < bt.model.reduced_ly
 	% This model is set up to fit t0 keeping the prior fixed if the alpha peak is not present
 	% Note that prepare_for_fit must be used before spectrum() can be used
 	% Uniform priors and DB initial fit
@@ -10,7 +10,7 @@ classdef reduced_ly_no_n < mcmc.model.reduced_ly
 
 	methods
 		function self = reduced_ly_no_n() % Constructor
-			self = self@mcmc.model.reduced_ly
+			self = self@bt.model.reduced_ly
 			self.name = 'model_reduced_ly_no_n';
 		end
 

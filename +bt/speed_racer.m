@@ -4,9 +4,9 @@ function speed_racer(model)
 	fnames = {'1e6','1e5','1e4','5e3','2e3'};
 	for k = 1:length(fnames)
 		n_runs = 20;
-		f(n_runs) = mcmc.feather;
+		f(n_runs) = bt.feather;
 		parfor j = 1:n_runs
-			f(j) = mcmc.speed_test(model,runlength(k));
+			f(j) = bt.speed_test(model,runlength(k));
 		end
 
 		save(sprintf('speed_racer_%s',fnames{k}));

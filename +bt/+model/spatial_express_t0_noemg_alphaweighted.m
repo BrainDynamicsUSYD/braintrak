@@ -1,4 +1,4 @@
-classdef spatial_express_t0_noemg_alphaweighted < mcmc.model.spatial_express_t0_noemg
+classdef spatial_express_t0_noemg_alphaweighted < bt.model.spatial_express_t0_noemg
 	% This is a template function that allows rapid prototyping of new spatial
 	% fitting by leveraging model.params.spatial_spectrum with absolutely
 	% no regard for performance
@@ -35,7 +35,7 @@ classdef spatial_express_t0_noemg_alphaweighted < mcmc.model.spatial_express_t0_
 		end
 
 		function w = get_weights(self,target_f) % Default weighting function
-			w = get_weights@mcmc.model.template(self,target_f);
+			w = get_weights@bt.model.template(self,target_f);
 			w(target_f > 25) = 0;
 			w(target_f > 8 & target_f < 12) = 30*w(target_f > 8 & target_f < 12);
 		end

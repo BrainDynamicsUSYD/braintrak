@@ -1,4 +1,4 @@
-classdef full_b_ratio < mcmc.model.full
+classdef full_b_ratio < bt.model.full
 	% This model is set up to fit t0 keeping the prior fixed if the alpha peak is not present
 	% Note that prepare_for_fit must be used before spectrum() can be used
 	% Uniform priors and DB initial fit
@@ -31,7 +31,7 @@ classdef full_b_ratio < mcmc.model.full
 		end
 
 		function p = p_from_params(self,fitted_params) % Map parameters to point
-			p = p_from_params@mcmc.model.full(self,fitted_params);
+			p = p_from_params@bt.model.full(self,fitted_params);
 			p.beta(:) = fitted_params(7)*fitted_params(6);
 		end
 		
@@ -44,13 +44,13 @@ classdef full_b_ratio < mcmc.model.full
 		end
 
 		function [chisq,P] = objective(self,pars) % Calculate the objective
-			% DON'T FORGET THAT MCMC.MODEL.FULL.OBJECTIVE HAS A CHECK FOR BETA/ALPHA<20
+			% DON'T FORGET THAT bt.MODEL.FULL.OBJECTIVE HAS A CHECK FOR BETA/ALPHA<20
 			pars(7) = pars(6)*pars(7); % Calculate beta
-			[chisq,P] = objective@mcmc.model.full(self,pars);
+			[chisq,P] = objective@bt.model.full(self,pars);
 		end
 		
 		function [initial_values,prior_pp] = initialize_fit(self,target_f,target_P) % Return the first posterior/prior and initial values
-			[initial_values,prior_pp] = initialize_fit@mcmc.model.full(self,target_f,target_P);
+			[initial_values,prior_pp] = initialize_fit@bt.model.full(self,target_f,target_P);
 			initial_values(7) = initial_values(7)/initial_values(6);
 			prior_pp = self.uniform_priors();
 		end

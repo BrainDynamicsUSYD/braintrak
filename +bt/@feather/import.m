@@ -6,9 +6,9 @@ function f = import(dirname)
 	j = 1;
 
 	[a,b] = get_data(d,chisq,dirname,j);
-	m = mcmc.model.full;
+	m = bt.model.full;
 	m.set_electrodes('Cz');
-	f = mcmc.feather(m,a,b);
+	f = bt.feather(m,a,b);
 
 	disp('Iterating')
 	for j = 2:length(d.t)
@@ -59,7 +59,7 @@ function [fit_data,plot_data_fname] = get_data(d,chisq,dirname,j)
 
 function chisq_out = chisq_analysis(f,tp,fp,skip_fit)
 	% Since fitted P is provided, it is already normalized
-	m = mcmc.model.full;
+	m = bt.model.full;
     w = m.get_weights(f);
     
 	for j = 1:size(tp,2)

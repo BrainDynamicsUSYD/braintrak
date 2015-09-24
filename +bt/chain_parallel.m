@@ -42,7 +42,7 @@ function [out,chisq_out,accept_ratio] = chain_parallel(model,initial_values,npoi
 	% The burnin-length is NOT yet adaptive for parallel fitting yet - proof of concept only
 
 	parfor j = 1:nworkers
-		[out1{j},chisq_out1{j},accept(j)] = mcmc.chain(model,initial_values,worker_n,false,timelimit,n_burnin);
+		[out1{j},chisq_out1{j},accept(j)] = bt.chain(model,initial_values,worker_n,false,timelimit,n_burnin);
 	end
 
 	% And assemble
@@ -57,8 +57,8 @@ function [out,chisq_out,accept_ratio] = chain_parallel(model,initial_values,npoi
 
 	if debugmode
 		for j = 1:4
-			mcmc.chain_diagnostics(model,out1{j},chisq_out1{j},1,true);
+			bt.chain_diagnostics(model,out1{j},chisq_out1{j},1,true);
 		end
 		fprintf(2,'Displaying final chain - note that parallel mode does not show burn-in')
-		mcmc.chain_diagnostics(model,out,chisq_out,1,false);
+		bt.chain_diagnostics(model,out,chisq_out,1,false);
 	end

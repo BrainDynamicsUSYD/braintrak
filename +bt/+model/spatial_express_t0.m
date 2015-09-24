@@ -1,4 +1,4 @@
-classdef spatial_express_t0 < mcmc.model.template_spatial
+classdef spatial_express_t0 < bt.model.template_spatial
 	% This is a template function that allows rapid prototyping of new spatial
 	% fitting by leveraging model.params.spatial_spectrum with absolutely
 	% no regard for performance

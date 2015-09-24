@@ -1,4 +1,4 @@
-classdef full < mcmc.model.template
+classdef full < bt.model.template
 	% This model is set up to fit t0 keeping the prior fixed if the alpha peak is not present
 	% Note that prepare_for_fit must be used before spectrum() can be used
 	% Uniform priors and DB initial fit
@@ -184,7 +184,7 @@ classdef full < mcmc.model.template
 				self.skip_fit = varargin{5};
 			end
 			
-			prepare_for_fit@mcmc.model.template(self,varargin{1:4});
+			prepare_for_fit@bt.model.template(self,varargin{1:4});
 		end
 
 	end

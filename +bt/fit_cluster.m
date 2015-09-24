@@ -12,11 +12,11 @@ function fdata = fit_cluster(model,dataset,subject_idx,npts_per_fit,suffix)
 		error('A finalized fit already exists!');
 	end
 
-	if isa(model,'mcmc.model.spatial_t0_2d') || isa(model,'mcmc.model.template_spatial')
-		d = mcmc.load_subject_data(dataset,subject_idx,{'all'});
+	if isa(model,'bt.model.spatial_t0_2d') || isa(model,'bt.model.template_spatial')
+		d = bt.load_subject_data(dataset,subject_idx,{'all'});
 		disp('Multi-electrode fitting selected')
 	else
-		d = mcmc.load_subject_data(dataset,subject_idx);
+		d = bt.load_subject_data(dataset,subject_idx);
 		disp('Single-electrode fitting selected')
 	end
 
@@ -51,10 +51,10 @@ function fdata = fit_cluster(model,dataset,subject_idx,npts_per_fit,suffix)
 		target_state{j_start} = d.state_str{j_start+(t_increment(j_start)-1)};
 		target_P = squeeze(d.s(:,j_start+(t_increment(j_start)-1),:));
 		[initial_params,initial_pp] = model.initialize_fit(d.f,target_P);
-		[fit_data,plot_data] = mcmc.fit(model,d.f(:),target_P,initial_pp,initial_params,npts_per_fit,target_state{initial_idx},[],debugmode);
+		[fit_data,plot_data] = bt.fit(model,d.f(:),target_P,initial_pp,initial_params,npts_per_fit,target_state{initial_idx},[],debugmode);
 		plot_data_fname = sprintf('%s/plot_data/t_%d',output_dir,j_start);
 		save(plot_data_fname,'plot_data');
-		f = mcmc.feather(model,fit_data,plot_data_fname);
+		f = bt.feather(model,fit_data,plot_data_fname);
 		j_start = 2;
 	end
 
@@ -71,13 +71,13 @@ function fdata = fit_cluster(model,dataset,subject_idx,npts_per_fit,suffix)
 			fprintf('Skipping %i due to bad data\n',j);
 		else
 			try
-				[fit_data,plot_data] = mcmc.fit(model,d.f(:),target_P,fit_data.posterior_pp,fit_data.fitted_params,npts_per_fit,d.state_str{didx});	
+				[fit_data,plot_data] = bt.fit(model,d.f(:),target_P,fit_data.posterior_pp,fit_data.fitted_params,npts_per_fit,d.state_str{didx});	
 				fprintf('Fitted %i\n',j);
 			catch
 				fit_data.skip_fit(1:end) = 4;
 				fit_data.target_f = d.f(:);
 				fit_data.target_P = target_P;
-				fprintf('Skipping %i due to an error in mcmc.fit()\n',j);
+				fprintf('Skipping %i due to an error in bt.fit()\n',j);
 			end
 		end
 

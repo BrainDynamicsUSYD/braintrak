@@ -1,4 +1,4 @@
-classdef template_spatial < mcmc.model.template
+classdef template_spatial < bt.model.template
 	% This is a template function that allows rapid prototyping of new spatial
 	% fitting by leveraging model.params.spatial_spectrum with absolutely
 	% no regard for performance
@@ -23,10 +23,10 @@ classdef template_spatial < mcmc.model.template
 	methods
 
 		function set_electrodes(self,data)
-			set_electrodes@mcmc.model.template(self,data)
+			set_electrodes@bt.model.template(self,data)
 
 			% Also calculate the electrode positions
-			[self.output_x,self.output_y] = mcmc.electrode_positions(self.electrodes,self.p.Lx,self.p.Lx);
+			[self.output_x,self.output_y] = bt.electrode_positions(self.electrodes,self.p.Lx,self.p.Lx);
 		end
 
 		function [p,p_electrode] = p_from_params(self,fitted_params) 
@@ -108,7 +108,7 @@ classdef template_spatial < mcmc.model.template
 				self.skip_fit = varargin{5};
 			end
 				
-			prepare_for_fit@mcmc.model.template(self,varargin{1:4});
+			prepare_for_fit@bt.model.template(self,varargin{1:4});
 		end
 
 		% TODO: Placeholders for other types of variations?

@@ -20,7 +20,7 @@ function import(os_prefix,data_set,k)
 	colheaders = fhandle.colheaders;
 	for j = 1:length(colheaders)
 		fprintf('%s_%d: %s electrode\n',data_set,k,colheaders{j});
-		[t,f,s(:,:,j),nspec(:,j),n_reject(j)] = mcmc.get_tfs(fhandle.t(:),fhandle.data(:,j),30);
+		[t,f,s(:,:,j),nspec(:,j),n_reject(j)] = bt.get_tfs(fhandle.t(:),fhandle.data(:,j),30);
 	end
 
 	t_max_retain = floor(length(t)/30)*30;

@@ -1,4 +1,4 @@
-classdef full_norm < mcmc.model.full
+classdef full_norm < bt.model.full
 	% This model is set up to fit t0 keeping the prior fixed if the alpha peak is not present
 	% Note that prepare_for_fit must be used before spectrum() can be used
 	% Uniform priors and DB initial fit
@@ -35,7 +35,7 @@ classdef full_norm < mcmc.model.full
 	
 
 		function [chisq,P] = objective(self,pars) % Calculate the objective
-			[chisq,P] = objective@mcmc.model.full(self,pars(1:9));
+			[chisq,P] = objective@bt.model.full(self,pars(1:9));
 			if isfinite(chisq)
 			    P = pars(10)*P;
 			    sqdiff = (abs(P-self.target_P)./self.target_P).^2; % This is the squared fractional difference

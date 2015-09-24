@@ -11,7 +11,7 @@ function output = load_kaggle_data(set_type,set_number)
 
     t = (0:(length(fdata.V)-1))/fdata.sampling_frequency;
 
-    [output.t,output.f,output.s, output.nspec, output.n_reject] = mcmc.get_tfs(t,fdata.V,window_length,fft_length,false);
+    [output.t,output.f,output.s, output.nspec, output.n_reject] = bt.get_tfs(t,fdata.V,window_length,fft_length,false);
     
     output.colheaders = fdata.electrode;
     output.start_idx = 1;

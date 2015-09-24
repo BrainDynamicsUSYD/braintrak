@@ -45,10 +45,10 @@ function [fit_data,plot_data,f_out] = fit(model,target_f,target_P,prior_pp,initi
 
 	if isempty(pool)
 		fprintf('Single CPU mode\n');
-		[out,posterior_out,accept_ratio] = mcmc.chain(model,initial_values,npoints,debugmode,timelimit);
+		[out,posterior_out,accept_ratio] = bt.chain(model,initial_values,npoints,debugmode,timelimit);
 	else
 		fprintf('Parallel mode with %d workers\n',pool.NumWorkers);
-		[out,posterior_out,accept_ratio] = mcmc.chain_parallel(model,initial_values,npoints,debugmode,timelimit);
+		[out,posterior_out,accept_ratio] = bt.chain_parallel(model,initial_values,npoints,debugmode,timelimit);
 	end
 
 	% Pick and evaluate the fitted parameters
@@ -94,6 +94,6 @@ function [fit_data,plot_data,f_out] = fit(model,target_f,target_P,prior_pp,initi
 	plot_data.tent_alpha = +(plot_data.tent_x+plot_data.tent_y<0.90 & plot_data.tent_x > 0 & plot_data.tent_x < 1);
 	
 	if nargout >= 3
-		f_out = mcmc.feather(model,fit_data,plot_data);
+		f_out = bt.feather(model,fit_data,plot_data);
 	end
 

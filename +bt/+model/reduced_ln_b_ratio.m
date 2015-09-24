@@ -1,4 +1,4 @@
-classdef reduced_ln_b_ratio < mcmc.model.reduced_ln
+classdef reduced_ln_b_ratio < bt.model.reduced_ln
 	% This model is set up to fit t0 keeping the prior fixed if the alpha peak is not present
 	% Note that prepare_for_fit must be used before spectrum() can be used
 	% Uniform priors and DB initial fit
@@ -32,7 +32,7 @@ classdef reduced_ln_b_ratio < mcmc.model.reduced_ln
 
 
 		function p = p_from_params(self,fitted_params) % Map parameters to point
-			p = p_from_params@mcmc.model.reduced_ln(self,fitted_params);
+			p = p_from_params@bt.model.reduced_ln(self,fitted_params);
 			p.beta(:) = fitted_params(4)*fitted_params(5);
 		end
 		
@@ -41,13 +41,13 @@ classdef reduced_ln_b_ratio < mcmc.model.reduced_ln
 		end
 
 		function [chisq,P] = objective(self,pars) % Calculate the objective
-			% DON'T FORGET THAT MCMC.MODEL.FULL.OBJECTIVE HAS A CHECK FOR BETA/ALPHA<20
+			% DON'T FORGET THAT bt.MODEL.FULL.OBJECTIVE HAS A CHECK FOR BETA/ALPHA<20
 			pars(5) = pars(4)*pars(5); % Calculate beta
-			[chisq,P] = objective@mcmc.model.reduced_ln(self,pars);
+			[chisq,P] = objective@bt.model.reduced_ln(self,pars);
 		end
 		
 		function [initial_values,prior_pp] = initialize_fit(self,target_f,target_P) % Return the first posterior/prior and initial values
-			[initial_values,prior_pp] = initialize_fit@mcmc.model.reduced_ln(self,target_f,target_P);
+			[initial_values,prior_pp] = initialize_fit@bt.model.reduced_ln(self,target_f,target_P);
 			initial_values(5) = initial_values(5)/initial_values(4);
 			prior_pp = self.uniform_priors();
 		end

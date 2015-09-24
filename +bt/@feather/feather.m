@@ -1,7 +1,7 @@
 classdef feather < handle
 	% A feather is a container for a sequence of fit data
 	% It contains an array of fit data and an array of plot data
-	% corresponding to the outputs of mcmc.fit()
+	% corresponding to the outputs of bt.fit()
 	% It also contains a copy of the model used for the fit
 	
 	properties
@@ -153,7 +153,7 @@ classdef feather < handle
 		function plot(self,idx)
 			if (nargin < 2 || isempty(idx)) && self.latest > 1
 				if isempty(self.viewer_obj) || self.viewer_obj.plot_chisq == 0 || ~ishandle(self.viewer_obj.parent_figure) 
-					self.viewer_obj = mcmc.viewer(self);
+					self.viewer_obj = bt.viewer(self);
 				end
 				return
 			elseif (nargin < 2 || isempty(idx)) && self.latest == 1
@@ -161,9 +161,9 @@ classdef feather < handle
 			end
 
 			[fd,pd] = self.retrieve(idx);
-			f2 = mcmc.feather(self.model,fd,pd);
+			f2 = bt.feather(self.model,fd,pd);
 			if isempty(self.viewer_obj) || self.viewer_obj.plot_chisq == 1 || ~ishandle(self.viewer_obj.parent_figure) 
-				self.viewer_obj = mcmc.viewer(f2);
+				self.viewer_obj = bt.viewer(f2);
 			else
 				self.viewer_obj.update_struct(fd,pd);
 			end

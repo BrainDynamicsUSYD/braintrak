@@ -92,7 +92,7 @@ function [xyz_out,xyzdiff] = load_all
     xyzdiff = [];
     xyz_out = [];
     for j = 1:9
-        f = mcmc.feather.import(sprintf('postmaster/control_apnea_art_%d_postmaster',j));
+        f = bt.feather.import(sprintf('postmaster/control_apnea_art_%d_postmaster',j));
 
         xyz = f.xyz;
         fitted = isfinite(chisq);

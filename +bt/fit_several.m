@@ -10,11 +10,11 @@ function fdata = fit_several(model,dataset,subject_idx,t_increment,npts_per_fit,
 
 	debugmode = false;
 
-	if isa(model,'mcmc.model.spatial_t0_2d') || isa(model,'mcmc.model.template_spatial')
-		d = mcmc.load_subject_data(dataset,subject_idx,{'all'});
+	if isa(model,'bt.model.spatial_t0_2d') || isa(model,'bt.model.template_spatial')
+		d = bt.load_subject_data(dataset,subject_idx,{'all'});
 		disp('Multi-electrode fitting selected')
 	else
-		d = mcmc.load_subject_data(dataset,subject_idx,{'Cz'});
+		d = bt.load_subject_data(dataset,subject_idx,{'Cz'});
 		disp('Single-electrode fitting selected')
 	end
 
@@ -39,13 +39,13 @@ function fdata = fit_several(model,dataset,subject_idx,t_increment,npts_per_fit,
 
 		if j == 1
 			[initial_params,initial_pp] = model.initialize_fit(d.f,target_P);
-			[fit_data(j),plot_data(j)] = mcmc.fit(model,d.f(:),target_P,initial_pp,initial_params,npts_per_fit,target_state{j},[],debugmode);
-			fdata = mcmc.feather(model,fit_data(j),plot_data(j),t_increment(j));
+			[fit_data(j),plot_data(j)] = bt.fit(model,d.f(:),target_P,initial_pp,initial_params,npts_per_fit,target_state{j},[],debugmode);
+			fdata = bt.feather(model,fit_data(j),plot_data(j),t_increment(j));
 		else
 			if use_prior
-				[fit_data(j),plot_data(j)] = mcmc.fit(model,d.f(:),target_P,fit_data(j-1).posterior_pp,fit_data(j-1).fitted_params,npts_per_fit,target_state{j},[],debugmode);			
+				[fit_data(j),plot_data(j)] = bt.fit(model,d.f(:),target_P,fit_data(j-1).posterior_pp,fit_data(j-1).fitted_params,npts_per_fit,target_state{j},[],debugmode);			
 			else
-				[fit_data(j),plot_data(j)] = mcmc.fit(model,d.f(:),target_P,initial_pp,fit_data(j-1).fitted_params,npts_per_fit,target_state{j},[],debugmode);			
+				[fit_data(j),plot_data(j)] = bt.fit(model,d.f(:),target_P,initial_pp,fit_data(j-1).fitted_params,npts_per_fit,target_state{j},[],debugmode);			
             end
             fdata.insert(fit_data(j),plot_data(j),t_increment(j));
 		end

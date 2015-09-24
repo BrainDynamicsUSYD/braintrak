@@ -1,4 +1,4 @@
-classdef reduced_emgf < mcmc.model.reduced
+classdef reduced_emgf < bt.model.reduced
 	% This model tests fitting with the EMG frequency allowed to vary
 
 	properties
@@ -29,7 +29,7 @@ classdef reduced_emgf < mcmc.model.reduced
 
 
 		function p = p_from_params(self,fitted_params) % Map parameters to point
-			p = p_from_params@mcmc.model.reduced(self,fitted_params);
+			p = p_from_params@bt.model.reduced(self,fitted_params);
 			p.emg_f = fitted_params(8);
 		end
 		
@@ -88,7 +88,7 @@ classdef reduced_emgf < mcmc.model.reduced
 		end
 		
 		function [initial_values,prior_pp] = initialize_fit(self,target_f,target_P) % Return the first posterior/prior and initial values
-			[initial_values,~] = initialize_fit@mcmc.model.reduced(self,target_f,target_P);
+			[initial_values,~] = initialize_fit@bt.model.reduced(self,target_f,target_P);
 			initial_values(8) = 40;
 			prior_pp = self.uniform_priors();
 		end

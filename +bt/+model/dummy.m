@@ -1,4 +1,4 @@
-classdef dummy < mcmc.model.template
+classdef dummy < bt.model.template
 
 	properties
 		means 

@@ -85,7 +85,7 @@ classdef viewer < handle
 				self.model.set_electrodes('Main')
 			end
 
-			if isa(self.model,'mcmc.model.template_spatial')
+			if isa(self.model,'bt.model.template_spatial')
 				self.is_spatial = true;
 			end
 
@@ -469,10 +469,10 @@ classdef viewer < handle
 		    for dim = 1:3 % For each dimension
 		        for j = 1:size(cdata,dim) % For each slice of the dimension
 		            h_idx = h_idx + 1;
-		            [cdat,adat] = mcmc.viewer.fetch_slice(cdata,alphadata,dim,j);
+		            [cdat,adat] = bt.viewer.fetch_slice(cdata,alphadata,dim,j);
 
 		            if ~cache.h_present(h_idx) && any(isfinite(adat(:)))
-		                b = mcmc.viewer.fetch_xyz(xdata,ydata,zdata,dim,j);
+		                b = bt.viewer.fetch_xyz(xdata,ydata,zdata,dim,j);
 		                cache.h_out(h_idx) = surface(b{1},b{2},b{3},'Parent',parent,'facecolor','texture','edgealpha',0,'facealpha','texturemap'); % Drawing the surface using only the endpoints gives a huge performance boost
 		                cache.h_present(h_idx) = 1;
 		            end

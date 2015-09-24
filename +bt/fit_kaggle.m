@@ -9,14 +9,14 @@ function fdata = fit_kaggle(model,set_type,set_number,npts_per_fit)
 	matlabpool_cluster(12)
 	%npts_per_fit = '10s';
 
-	% if isa(model,'mcmc.model.spatial_t0_2d') || isa(model,'mcmc.model.template_spatial')
-	% 	d = mcmc.load_subject_data(dataset,subject_idx,{'all'});
+	% if isa(model,'bt.model.spatial_t0_2d') || isa(model,'bt.model.template_spatial')
+	% 	d = bt.load_subject_data(dataset,subject_idx,{'all'});
 	% 	disp('Multi-electrode fitting selected')
 	% else
-	% 	d = mcmc.load_subject_data(dataset,subject_idx,{'Cz'});
+	% 	d = bt.load_subject_data(dataset,subject_idx,{'Cz'});
 	% 	disp('Single-electrode fitting selected')
 	% end
-	d = mcmc.load_kaggle_data(set_type,set_number);
+	d = bt.load_kaggle_data(set_type,set_number);
 
 	model.set_electrodes(d);
 	model.k0 = Inf; % Disable volume conduction for intracranial recordings
@@ -32,11 +32,11 @@ function fdata = fit_kaggle(model,set_type,set_number,npts_per_fit)
 
 		if j == 1
 			[initial_params,initial_pp] = model.initialize_fit(d.f,target_P);
-			[fit_data(j),plot_data(j)] = mcmc.fit(model,d.f(:),target_P,initial_pp,initial_params,npts_per_fit,target_state{j},[],debugmode);
-			fdata = mcmc.feather(model,fit_data(j),plot_data(j),t_increment(j));
+			[fit_data(j),plot_data(j)] = bt.fit(model,d.f(:),target_P,initial_pp,initial_params,npts_per_fit,target_state{j},[],debugmode);
+			fdata = bt.feather(model,fit_data(j),plot_data(j),t_increment(j));
 		else
-			[fit_data(j),plot_data(j)] = mcmc.fit(model,d.f(:),target_P,fit_data(j-1).posterior_pp,fit_data(j-1).fitted_params,npts_per_fit,target_state{j},[],debugmode);			
-			%[fit_data(j),plot_data(j)] = mcmc.fit(model,d.f(:),target_P,initial_pp,fit_data(j-1).fitted_params,npts_per_fit,target_state{j},[],debugmode);			
+			[fit_data(j),plot_data(j)] = bt.fit(model,d.f(:),target_P,fit_data(j-1).posterior_pp,fit_data(j-1).fitted_params,npts_per_fit,target_state{j},[],debugmode);			
+			%[fit_data(j),plot_data(j)] = bt.fit(model,d.f(:),target_P,initial_pp,fit_data(j-1).fitted_params,npts_per_fit,target_state{j},[],debugmode);			
             fdata.insert(fit_data(j),plot_data(j),t_increment(j));
 		end
 

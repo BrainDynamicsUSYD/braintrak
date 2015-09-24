@@ -7,7 +7,7 @@ function [f,bic] = fit_br_bic(idx)
 
 	n_fits = length(files);
 	bic = zeros(n_fits,1);
-	f(n_fits) = mcmc.feather;
+	f(n_fits) = bt.feather;
 
 	debugmode = false;
 	npts_per_fit = 5e4;
@@ -20,24 +20,24 @@ function [f,bic] = fit_br_bic(idx)
 
 		switch idx
 			case 1 % Full model
-				m = mcmc.model.full;
+				m = bt.model.full;
 				skip_fit = [0 0 0 0 0 0 0 0 0];
 			case 2
-				m = mcmc.model.full;
+				m = bt.model.full;
 				skip_fit = [0 0 0 0 0 0 0 0 2];
 				initial_params_override = [NaN NaN NaN NaN NaN NaN NaN NaN eps ];
 			case 3
-				m = mcmc.model.full_emgf;
+				m = bt.model.full_emgf;
 				skip_fit = [0 0 0 0 0 0 0 0 0 0];
 			case 4 
-				m = mcmc.model.reduced;
+				m = bt.model.reduced;
 				skip_fit = [0 0 0 0 0 0 0];
 			case 5
-				m = mcmc.model.reduced; 
+				m = bt.model.reduced; 
 				skip_fit = [0 0 0 0 0 0 2];
 				initial_params_override = [NaN NaN NaN NaN NaN NaN eps ];
 			case 6
-				m = mcmc.model.reduced_emgf; 
+				m = bt.model.reduced_emgf; 
 				skip_fit = [0 0 0 0 0 0 0 0];
 			otherwise
 				error('Undefined index')
@@ -50,7 +50,7 @@ function [f,bic] = fit_br_bic(idx)
 			initial_params(isfinite(initial_params_override)) = initial_params_override(isfinite(initial_params_override));
 		end
 
-		[~,~,f(j)] = mcmc.fit(m,d.f(:),d.P(:),initial_pp,initial_params,npts_per_fit,[],skip_fit,debugmode);
+		[~,~,f(j)] = bt.fit(m,d.f(:),d.P(:),initial_pp,initial_params,npts_per_fit,[],skip_fit,debugmode);
 
 		f(j).compress();
 		bic(j) = f(j).fit_data.bic;

@@ -16,7 +16,7 @@ function clouds(f)
 		pts = state_color == j;
 		if any(pts)
 			[Vcount] = utils.simple_bin3d(xyz(pts,:),xyzlim,gridres);
-			vol = mcmc.viewer.vol3d_alpha_fast(gca,xyzlim,j*+(Vcount>0),Vcount);
+			vol = bt.viewer.vol3d_alpha_fast(gca,xyzlim,j*+(Vcount>0),Vcount);
 			hold on
 		end
 	end
