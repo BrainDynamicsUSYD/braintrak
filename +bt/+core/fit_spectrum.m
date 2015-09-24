@@ -16,8 +16,12 @@ function [f_out,fit_data,plot_data] = fit_spectrum(model,target_f,target_P,prior
 		skip_fit = [];
 	end
 
-	if nargin < 7
+	if nargin < 7 || isempty(npoints)
 		target_state = 'N/A';
+	end
+
+	if nargin < 6 || isempty(npoints)
+		npoints = '10s'; % Default run time
 	end
 
 	if ischar(npoints)
@@ -27,7 +31,27 @@ function [f_out,fit_data,plot_data] = fit_spectrum(model,target_f,target_P,prior
 		timelimit = false;
 	end
 
-	assert(size(target_P,2)==length(model.electrodes))
+	if (nargin < 5 || isempty(initial_values)) || (nargin < 4 || isempty(prior_pp))
+		[init_default,prior_default] = model.initialize_fit(target_f,target_P);
+		if (nargin < 5 || isempty(initial_values)) 
+			initial_values = init_default;
+		end
+		if (nargin < 4 || isempty(prior_pp))
+			prior_pp = prior_default;
+		end
+	end
+
+	if nargin < 3 || isempty(target_P) || isempty(target_f) || isempty(model)
+		error('You must provide a minimum of the model, target_f and target_P to use this function')
+	end
+
+	if isempty(model.electrodes)
+		model.set_electrodes('Cz');
+	end
+
+	if size(target_P,2) ~=length(model.electrodes)
+		error('The number of electrodes in the model and the number of electrodes in the data are different. Did you run `model.set_electrodes()` correctly?')
+	end
 	
 	model.prepare_for_fit(target_f,target_P,initial_values,prior_pp,skip_fit);
 

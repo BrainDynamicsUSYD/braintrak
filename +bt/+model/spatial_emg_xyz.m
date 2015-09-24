@@ -31,7 +31,7 @@ classdef spatial_emg_xyz < bt.model.template_spatial
 			].';
 			
 			Lx = 0.5;
-			head_d = bt.electrode_positions;
+			head_d = bt.data.electrode_positions;
 			offset = (Lx-head_d)/2;
 
 			self.limits = [

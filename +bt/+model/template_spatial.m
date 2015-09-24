@@ -26,7 +26,7 @@ classdef template_spatial < bt.model.template
 			set_electrodes@bt.model.template(self,data)
 
 			% Also calculate the electrode positions
-			[self.output_x,self.output_y] = bt.electrode_positions(self.electrodes,self.p.Lx,self.p.Lx);
+			[self.output_x,self.output_y] = bt.data.electrode_positions(self.electrodes,self.p.Lx,self.p.Lx);
 		end
 
 		function [p,p_electrode] = p_from_params(self,fitted_params) 

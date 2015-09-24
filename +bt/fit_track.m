@@ -1,8 +1,4 @@
-function fdata = fit_several(model,dataset,subject_idx,t_increment,npts_per_fit,use_prior)
-	% CALLING SEQUENCE
-	% fit_subject loads subject data
-	% fit_spectrum takes in a spectrum and returns a fitted point struct
-	% fit_single(_parallel) actually does the fitting of the 8 parameters
+function fdata = fit_track(model,dataset,subject_idx,t_increment,npts_per_fit,use_prior)
 
 	if nargin < 6 || isempty(use_prior)
 		use_prior = true;
