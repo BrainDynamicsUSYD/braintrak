@@ -9,25 +9,20 @@ function fdata = load_br_data(subject_id,electrode)
 		subject_id = '10002687';
 	end
 
-	if ispc
-			fdata = load(sprintf('./psg_data/br_ec_multielectrode/%s.mat',subject_id));
+	if strcmp(subject_id,'demo')
+		fdata = load('./braintrak/demo_spatial.mat');
 	else
-		switch romesh_utils.hostname()
-			case {'cathcart','korn','daneeka'}
-				fdata = load(sprintf('~/cathcart/psg_data/br_ec_multielectrode/%s.mat',subject_id));
-            otherwise
-				fdata = load(sprintf('~/Desktop/psg_data/br_ec_multielectrode/%s.mat',subject_id));
-		end
+		fdata = load(sprintf('./psg_data/br_ec_multielectrode/%s.mat',subject_id));
 	end
 
-		% Find the indexes omatf fdata.electrodes that are present in electrode
-		if ~isempty(electrode) && (length(electrode) > 1 || ~strcmp(electrode,'all'))
-			idx = cellfun(@(x) find(strcmpi(x,fdata.electrodes)),electrode);
-			fdata.electrodes = fdata.electrodes(idx);
-			fdata.P = fdata.P(:,idx);
-		end
+	% Find the indexes omatf fdata.electrodes that are present in electrode
+	if ~isempty(electrode) && (length(electrode) > 1 || ~strcmp(electrode,'all'))
+		idx = cellfun(@(x) find(strcmpi(x,fdata.electrodes)),electrode);
+		fdata.electrodes = fdata.electrodes(idx);
+		fdata.P = fdata.P(:,idx);
+	end
 
-		fidx = fdata.f >= 0.25 & fdata.f <= 45;
-		fdata.f = fdata.f(fidx);
-		fdata.P = fdata.P(fidx,:);
+	fidx = fdata.f >= 0.25 & fdata.f <= 45;
+	fdata.f = fdata.f(fidx);
+	fdata.P = fdata.P(fidx,:);
 

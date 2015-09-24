@@ -1,5 +1,5 @@
 function f = fit_br_spatial(model,subject_id,npts)
-	fdata = bt.load_br_data(subject_id,'all');
+	fdata = load_br_data(subject_id,'all');
 
 	[init_default,prior_pp] = model.initialize_fit(fdata.f,fdata.P);
 
