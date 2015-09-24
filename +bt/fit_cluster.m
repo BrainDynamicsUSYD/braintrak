@@ -13,10 +13,10 @@ function fdata = fit_cluster(model,dataset,subject_idx,npts_per_fit,suffix)
 	end
 
 	if isa(model,'bt.model.spatial_t0_2d') || isa(model,'bt.model.template_spatial')
-		d = bt.load_subject_data(dataset,subject_idx,{'all'});
+		d = bt.core.load_subject(dataset,subject_idx,{'all'});
 		disp('Multi-electrode fitting selected')
 	else
-		d = bt.load_subject_data(dataset,subject_idx);
+		d = bt.core.load_subject(dataset,subject_idx);
 		disp('Single-electrode fitting selected')
 	end
 

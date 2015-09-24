@@ -11,10 +11,10 @@ function fdata = fit_several(model,dataset,subject_idx,t_increment,npts_per_fit,
 	debugmode = false;
 
 	if isa(model,'bt.model.spatial_t0_2d') || isa(model,'bt.model.template_spatial')
-		d = bt.load_subject_data(dataset,subject_idx,{'all'});
+		d = bt.core.load_subject(dataset,subject_idx,{'all'});
 		disp('Multi-electrode fitting selected')
 	else
-		d = bt.load_subject_data(dataset,subject_idx,{'Cz'});
+		d = bt.core.load_subject(dataset,subject_idx,{'Cz'});
 		disp('Single-electrode fitting selected')
 	end
 

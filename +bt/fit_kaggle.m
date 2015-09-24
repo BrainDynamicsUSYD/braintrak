@@ -10,10 +10,10 @@ function fdata = fit_kaggle(model,set_type,set_number,npts_per_fit)
 	%npts_per_fit = '10s';
 
 	% if isa(model,'bt.model.spatial_t0_2d') || isa(model,'bt.model.template_spatial')
-	% 	d = bt.load_subject_data(dataset,subject_idx,{'all'});
+	% 	d = bt.core.load_subject(dataset,subject_idx,{'all'});
 	% 	disp('Multi-electrode fitting selected')
 	% else
-	% 	d = bt.load_subject_data(dataset,subject_idx,{'Cz'});
+	% 	d = bt.core.load_subject(dataset,subject_idx,{'Cz'});
 	% 	disp('Single-electrode fitting selected')
 	% end
 	d = bt.load_kaggle_data(set_type,set_number);
