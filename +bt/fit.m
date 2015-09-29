@@ -5,4 +5,7 @@ function f_out = fit(model,f,P,npts)
 	end
 
 	f_out =  bt.core.fit_spectrum(model,f,P,[],[],npts);
-	f_out.plot()
+	
+	if nargout == 0
+		f_out.plot()
+	end
