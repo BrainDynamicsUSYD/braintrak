@@ -26,7 +26,7 @@ function [f_fitted,P_fitted,idx,db_data,min_chisq] = quick_fit(model,target_f,ta
     chisq = zeros(1,size(db_data.P,1));
     norm_pp = db_data.P;
     for j = 1:size(db_data.P,1)
-        norm_pp(j,:) = normalization_target*norm_pp(j,:)./mex_trapz(db_data.f,norm_pp(j,:));
+        norm_pp(j,:) = normalization_target*norm_pp(j,:)./mex_trapz(db_data.f(weights>0),norm_pp(j,weights>0));
         sqdiff = (abs(norm_pp(j,:)-target_P)./target_P).^2; % This is the squared fractional difference
         chisq(j) = sum(sqdiff(:).*weights(:));
     end
