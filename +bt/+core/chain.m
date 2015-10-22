@@ -103,8 +103,8 @@ function [out,final_posterior,accept_ratio] = chain(model,initial_values,n_point
 			% accept==n_initial means that j was set to n_initial AND that the point was accepted on this round
 			initialization_stage = 2;
 			stage_1_time = toc;
-			my_cov = cov(out(1:j,:));
-			mu = mean(out(1:j,:));
+			my_cov = cov(out(1:j-1,:));
+			mu = mean(out(1:j-1,:));
 		elseif initialization_stage == 2 && j == n_burnin % Reset acceptance ratio counter
 			initialization_stage = 3;
 			elapsed = toc;
