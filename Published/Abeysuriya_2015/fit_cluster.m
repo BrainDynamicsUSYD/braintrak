@@ -68,6 +68,11 @@ function fdata = fit_cluster(model,dataset,subject_idx,npts_per_fit,suffix)
 			fit_data.skip_fit(1:end) = 3;
 			fit_data.target_f = d.f(:);
 			fit_data.target_P = target_P;
+			model.prepare_for_fit(fit_data.target_f,fit_data.target_P,fit_data.fitted_params,fit_data.posterior_pp,fit_data.skip_fit);
+			fit_data(k).fitted_chisq = model.probability(fit_data.fitted_params);
+			fit_data(k).bic = NaN;
+			fit_data(k).aic = NaN;
+			fit_data(k).aicc = NaN;
 			fprintf('Skipping %i due to bad data\n',j);
 		else
 			try
