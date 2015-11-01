@@ -9,15 +9,19 @@ function interactive_fit(self)
 	end
 
 	h.m = fit.model;
+	h.fit_data = fit.fit_data;
 	h.pars_orig = fit.fitted_params;
 	h.f = linspace(1,45,1000);
 	h.fig = figure;
+	h.f = fit.fit_data.target_f;
 	
 	exp_weights = h.m.get_weights(fit.fit_data.target_f);
 	h.normalization_target = trapz(fit.fit_data.target_f(exp_weights>0),fit.fit_data.target_P(exp_weights>0));
 
 	h.ax = axes('Parent',h.fig,'Position',[0.07 0.45 0.45 0.5]);
 	[f,P] = h.m.spectrum(h.pars_orig,h.f);
+	h.m.prepare_for_fit(h.fit_data.target_f,h.fit_data.target_P,h.fit_data.fitted_params,h.fit_data.posterior_pp);
+	chisq = h.m.probability(h.pars_orig);
 	P = P./trapz(f(h.m.weights>0),P(h.m.weights>0))*h.normalization_target;
 	s1 = loglog(f,P);
 	xlabel('Frequency (Hz)');
@@ -27,6 +31,7 @@ function interactive_fit(self)
 	set(h.ax,'XLim',[1 45]);
 	loglog(fit.fit_data.target_f,fit.fit_data.target_P,'b--')
 
+	h.title_text = title(sprintf('\\chi^2 = %.2f',chisq));
 	h.t0_marker(1) = plot([NaN NaN],[NaN NaN],'g--');
 	h.t0_marker(2) = plot([NaN NaN],[NaN NaN],'g--');
 	h.t0_marker(3) = plot([NaN NaN],[NaN NaN],'g--');
@@ -84,11 +89,14 @@ function draw(m,pars,h)
 
 	try
 		[f,P,stab] = m.spectrum(pars,m.target_f);
+		m.prepare_for_fit(h.fit_data.target_f,h.fit_data.target_P,h.fit_data.fitted_params,h.fit_data.posterior_pp);
+		chisq = m.probability(pars);
 		P = P./trapz(f(h.m.weights>0),P(h.m.weights>0))*h.normalization_target;
 	catch
 		f = NaN;
 		P = NaN;
 		stab = false;
+		chisq = NaN;
 	end
 	a=model.get_pkf(f,P);
 	%pks = [a.alpha_maxf,a.sigma_maxf,a.beta_maxf,a.gamma_maxf]
@@ -112,9 +120,9 @@ function draw(m,pars,h)
 	else
 		set(h.s2,'LineStyle',':')
 		set(h.tent_marker,'MarkerFaceColor','r','CData',[1 0 0])
-
 	end
 
+	set(h.title_text,'String',sprintf('\\chi^2 = %.2f',chisq));
 	set(h.t0_marker(1),'XData',[alpha_freq,alpha_freq],'YData',yl);
 	set(h.t0_marker(2),'XData',[2*alpha_freq,2*alpha_freq],'YData',yl);
 	set(h.t0_marker(3),'XData',[3*alpha_freq,3*alpha_freq],'YData',yl);
