@@ -136,6 +136,10 @@ classdef feather < handle
 
 
 		function [fit_data,plot_data] = retrieve(self,idx)
+            if length(idx) > 1
+                error('bt.feather.retrieve() takes in a single index only')
+            end
+            
 			if idx > self.latest
 				error('Index out of bounds');
 			end

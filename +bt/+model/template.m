@@ -33,7 +33,7 @@ classdef (Abstract) template < matlab.mixin.Copyable
 
 	methods
 
-		function [target_f,P,stab] = spectrum(self,pars,target_f)
+		function [target_f,P,stab,chisq] = spectrum(self,pars,target_f)
 
 			if nargin < 3
 				target_f = linspace(1,45,100);
