@@ -6,10 +6,10 @@ function import_raw_eeg
 
 	os_prefix = './psg_data/';
 
-	data_set = 'control_opioid';
-	idx = 1:19;
+	data_set = 'unresponsive';
+	idx = 1;
 
-	parfor j = idx
+	for j = idx
 		import(os_prefix,data_set,j);
 	end
 

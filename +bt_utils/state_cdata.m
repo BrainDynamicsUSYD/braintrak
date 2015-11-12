@@ -1,4 +1,4 @@
-function [cdata,states] = state_cdata
+function [cdata,state_names,short_mapping] = state_cdata
 
 	cdata = [
 	137  44  145; ...	% EO, purple
@@ -13,4 +13,14 @@ function [cdata,states] = state_cdata
 
 	cdata = cdata/255;
 
-	states = {'eo','ec','rem','n1','n2','n3','n2s','unresponsive'};
+	% These map directly to colours
+	state_names = {'eo','ec','rem','n1','n2','n3','n2s','unresponsive'};
+
+	% Map single character strings to colour indexes
+	short_mapping{1}  = {'W','R','1','2','3','4'};
+	short_mapping{2}  = [2 3 4 5 6 6]; % Indexes for cdata
+
+	
+
+
+	
