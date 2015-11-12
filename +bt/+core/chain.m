@@ -76,7 +76,7 @@ function [out,final_posterior,accept_ratio] = chain(model,initial_values,n_point
 			end
 		end
 
-		if initialization_stage == 1
+		if initialization_stage 
 			x(2,:) = x(1,:) + model.initial_step_size.*randn(1,model.n_params); 
 		else
 			x(2,:) = mvnrnd_fast(x(1,:),lambda*my_cov);
