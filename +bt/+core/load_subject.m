@@ -1,7 +1,12 @@
-function fdata = load_subject_data(dataset,subject_idx,electrode)
+function fdata = load_subject(dataset,subject_idx,electrode)
+	
+	% By convention, the default electrode should be a single electrode as close to
+	% Cz as possible
 	if nargin < 3 || isempty(electrode)
-		if any(strcmp({'control_apnea','olivia'},dataset))
+		if any(strcmp({'control_apnea','olivia','demo'},dataset))
 			electrode = {'Cz'};
+		elseif strcmp(dataset,'unresponsive')
+			electrode = {'E161'};
 		else
 			electrode = {'C4-A1'};
 		end
@@ -18,6 +23,8 @@ function fdata = load_subject_data(dataset,subject_idx,electrode)
 		fdata = load(sprintf('./psg_data/olivia/%s_%d',dataset,subject_idx));
 	elseif any(strcmp({'demo'},dataset))
 		fdata = load(sprintf('./braintrak/%s',dataset)); % Load the demo file
+	elseif any(strcmp({'unresponsive'},dataset))
+		fdata = load(sprintf('./psg_data/unresponsive/%s_%d_tfs',dataset,subject_idx));
 	else
 		error('Data set unknown');
 	end

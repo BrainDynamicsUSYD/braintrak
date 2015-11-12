@@ -10,7 +10,7 @@ function fdata = fit_track(model,dataset,subject_idx,t_increment,npts_per_fit,us
 		d = bt.core.load_subject(dataset,subject_idx,{'all'});
 		disp('Multi-electrode fitting selected')
 	else
-		d = bt.core.load_subject(dataset,subject_idx,{'Cz'});
+		d = bt.core.load_subject(dataset,subject_idx); % Use the default electrode from load_subject
 		disp('Single-electrode fitting selected')
 	end
 
