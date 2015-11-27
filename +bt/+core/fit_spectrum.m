@@ -16,7 +16,7 @@ function [f_out,fit_data,plot_data] = fit_spectrum(model,target_f,target_P,prior
 		skip_fit = [];
 	end
 
-	if nargin < 7 || isempty(npoints)
+	if nargin < 7 || isempty(target_state)
 		target_state = 'N/A';
 	end
 
