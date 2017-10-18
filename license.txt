@@ -1,3 +1,23 @@
+BRAINTRAK
+
+(c) Copyright Romesh Abeysuriya and Peter Robinson 2017.
+
+Using BrainTrak indicates your acceptance of the present terms and conditions.
+
+BrainTrak is experimental software for use in a research setting. Users take full responsibility for any application of research outcomes obtained using BrainTrak. The developers are not responsible for misuse or improper use of any BrainTrak components.
+
+You must not:
+ 
+- Use this program for commercial or industrial purposes;
+- Redistribute this program to other individuals or organizations;
+- Publish or present the outcomes of the software application without referencing either the BrainTrak methods paper (Abeysuriya and Robinson 2016), and/or the BrainTrak website.
+
+This license may be automatically revoked in the future if an exclusive license to BrainTrak is subsequently issued.
+
+For further information, please email romesh.abey@gmail.com or robinsonp4@bigpond.com
+
+--------------------------------------------
+
 kde.m license
 
 Copyright (c) 2007, Zdravko Botev
